@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use JetBrains\PhpStorm\ArrayShape;
+
+class Email extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['email_address'];
+
+    #[ArrayShape(['email_address' => "string[]"])] public function rules(): array
+    {
+        return [
+            'email_address' => ['required', 'email'],
+        ];
+    }
+}
