@@ -4,10 +4,10 @@
     <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Редактирование почты</h2>
+                <h2>Редактирование площадки</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('emails.index') }}"> На главную</a>
+                <a class="btn btn-primary" href="{{ route('locations.index') }}"> На главную</a>
             </div>
         </div>
     </div>
@@ -22,24 +22,24 @@
         </div>
     @endif
 
-    <form action="{{ route('emails.update', $email->id) }}" method="POST">
+    <form action="{{ route('locations.update', $location->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
             <div class="form-group">
-                <p>Когда добавили: <strong>{{ $email->created_at }}</strong></p>
+                <p>Когда добавили: <strong>{{ $location->created_at }}</strong></p>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
             <div class="form-group">
-                <p>Когда последний раз меняли: <strong>{{ $email->updated_at }}</strong></p>
+                <p>Когда последний раз меняли: <strong>{{ $location->updated_at }}</strong></p>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="email" name="email_address" value="{{ $email->email_address }}" class="form-control" placeholder="Email">
+                    <input type="text" name="name" value="{{ $location->name }}" class="form-control" placeholder="Например, Липецк">
                 </div>
             </div>
         </div>

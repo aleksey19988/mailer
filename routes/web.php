@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [SiteController::class, 'index']);
+Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
 Route::resource('emails', EmailController::class);
+Route::resource('locations', LocationController::class);
 
 //Route::get('/emails', [EmailController::class, 'index'])->name('emails.index');
 //Route::get('/emails/create', [EmailController::class, 'create'])->name('emails.create');

@@ -52,14 +52,12 @@ class EmailController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect('emails/create')
+            return redirect(route('emails.create'))
                 ->withErrors($validator)
                 ->withInput();
         }
 
-
         Email::query()->create($validator->validated());
-
         return redirect()->route('emails.index')->with('success', 'Email успешно добавлен.');
     }
 
@@ -72,7 +70,7 @@ class EmailController extends Controller
      */
     public function show(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $email = Email::query()->find($id);
+        $email = Email::query()->findOrFail($id);
         return view('emails.show', compact('email'));
     }
 
@@ -85,7 +83,7 @@ class EmailController extends Controller
      */
     public function edit(string $id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $email = Email::query()->find($id);
+        $email = Email::query()->findOrFail($id);
         return view('emails.edit', compact('email'));
     }
 
@@ -96,6 +94,7 @@ class EmailController extends Controller
      * @param string $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, string $id): RedirectResponse
     {
@@ -109,7 +108,7 @@ class EmailController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect('emails/create')
+            return redirect(route('emails.update'))
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -129,7 +128,6 @@ class EmailController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         Email::query()->find($id)->delete();
-
         return redirect()->route('emails.index')->with('success', 'Email успешно удалён');
     }
 }

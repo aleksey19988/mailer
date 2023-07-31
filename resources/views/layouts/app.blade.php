@@ -10,6 +10,12 @@
     <title>Document</title>
 </head>
 <body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
+            <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
+        </div>
+    </nav>
     <div class="container pt-3">
         @yield('content')
     </div>
