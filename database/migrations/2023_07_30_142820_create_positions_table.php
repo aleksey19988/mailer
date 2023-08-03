@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    const TABLE_NAME = 'emails';
+    const TABLE_NAME = 'positions';
 
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
-            $table->string('email_address')->comment('Адрес электронной почты');
+            $table->string('name')->comment('Наименование должности');
             $table->timestamps();
 
             $table->softDeletes();

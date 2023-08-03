@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->comment('Наименование праздника');
-            $table->dateTime('date_of_celebration')->nullable()->comment('Дата празднования');
+            $table->timestamp('date_of_celebration')->nullable()->comment('Дата празднования');
             $table->timestamps();
 
             $table->softDeletes();

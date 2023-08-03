@@ -8,6 +8,7 @@
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('locations.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('locations.edit', $location) }}">Редактировать</a>
             </div>
         </div>
     </div>

@@ -33,8 +33,12 @@ class HolidayController extends Controller
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
+
+        $requestData = $request->all();
+        $requestData['date_of_celebration'] = strtotime($requestData['date_of_celebration']);
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
+            'date_of_celebration' => 'string',
         ], $messages);
 
         if ($validator->fails()) {

@@ -4,6 +4,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\RequestTypeController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,6 @@ Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
 Route::resource('emails', EmailController::class);
 Route::resource('locations', LocationController::class);
-Route::resource('request-types', HolidayController::class);
+Route::resource('request-types', RequestTypeController::class);
 Route::resource('holidays', HolidayController::class);
 Route::resource('departments', DepartmentController::class);

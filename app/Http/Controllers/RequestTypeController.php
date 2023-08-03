@@ -43,7 +43,7 @@ class RequestTypeController extends Controller
                 ->withInput();
         }
         RequestType::query()->create($validator->validated());
-        return redirect()->route('request-types.index')->with('success', 'Площадка успешно добавлена &#129304;');
+        return redirect()->route('request-types.index')->with('success', 'Тип запроса успешно добавлен');
     }
 
     /**

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('email_id')->constrained()->onDelete('cascade');
             $table->string('name')->comment('Наименование отдела');
+            $table->string('email')->comment('Электронная почта отдела');
             $table->timestamps();
 
             $table->softDeletes();
@@ -28,9 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table(self::TABLE_NAME, function (Blueprint $table) {
-            $table->dropForeign(['email_id']);
-        });
         Schema::dropIfExists(self::TABLE_NAME);
     }
 };

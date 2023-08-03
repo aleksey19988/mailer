@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
             $table->dateTime('created_at')->comment('Дата создания запроса');
-            $table->foreignId('request_type_id')->constrained()->onDelete('cascade');
+            $table->string('request_type');
             $table->jsonb('request_parameters')->comment('Параметры запроса');
             $table->jsonb('response_parameters')->comment('Параметры ответа');
         });
@@ -28,9 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table(self::TABLE_NAME, function (Blueprint $table) {
-            $table->dropForeign(['request_type_id']);
-        });
         Schema::dropIfExists(self::TABLE_NAME);
     }
 };

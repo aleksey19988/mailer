@@ -8,6 +8,7 @@
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('request-types.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('request-types.edit', $requestType) }}">Редактировать</a>
             </div>
         </div>
     </div>

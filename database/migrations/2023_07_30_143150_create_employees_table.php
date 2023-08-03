@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->comment('ID отдела')->constrained()->onDelete('cascade');
+            $table->foreignId('branch_id')->comment('ID филиала')->constrained()->onDelete('cascade');
+            $table->foreignId('position_id')->comment('ID должности')->constrained()->onDelete('cascade');
             $table->string('first_name')->comment('Имя');
             $table->string('last_name')->comment('Фамилия');
             $table->string('patronymic')->comment('Отчество');
-            $table->dateTime('birthday')->comment('Дата рождения');
-            $table->foreignId('email_id')->constrained()->onDelete('cascade');
-            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            $table->string('email')->comment('Электронная почта сотрудника');
+            $table->timestamp('birthday')->comment('Дата рождения');
             $table->timestamps();
 
             $table->softDeletes();
@@ -33,8 +35,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table(self::TABLE_NAME, function (Blueprint $table) {
-            $table->dropForeign(['email_id']);
-            $table->dropForeign(['location_id']);
+            $table->dropForeign(['department_id']);
+            $table->dropForeign(['branch_id']);
+            $table->dropForeign(['position_id']);
         });
         Schema::dropIfExists(self::TABLE_NAME);
     }

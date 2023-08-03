@@ -7,7 +7,8 @@
                 <h2> Просмотр</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('emails.index') }}"> Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('emails.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('emails.edit', $email) }}">Редактировать</a>
             </div>
         </div>
     </div>
@@ -25,11 +26,11 @@
                 </div>
                 <div class="created_at-container">
                     <strong>Дата создания:</strong>
-                    {{ $email->created_at }}
+                    {{ $email->created_at ?? 'Не указана'}}
                 </div>
                 <div class="updated_at-container">
                     <strong>Дата обновления:</strong>
-                    {{ $email->updated_at }}
+                    {{ $email->updated_at ?? 'Не указана'}}
                 </div>
                 <div class="deleted_at-container">
                     <strong>Активен:</strong>

@@ -16,7 +16,7 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    @if(!empty($locations->items))
+    @if(!empty($locations->all()))
         <table class="table table-striped">
             <tr>
                 <th>Наименование</th>

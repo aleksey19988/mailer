@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('holiday_id')->constrained()->onDelete('cascade');
+            $table->foreignId('holiday_id')->comment('ID праздника')->constrained()->onDelete('cascade');
             $table->jsonb('addressee_letter_email_ids')->comment('Список id email-ов получателей письма');
             $table->jsonb('addressee_copy_email_ids')->comment('Список id email-ов получателей копии письма');
             $table->string('letter_subject')->comment('Тема письма');
             $table->string('letter_body')->comment('Тело письма');
             $table->boolean('is_send_success');
-            $table->timestamps();
+            $table->timestamp('created_at')->comment('Дата отправки');
         });
     }
 

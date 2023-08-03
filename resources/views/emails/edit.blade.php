@@ -25,14 +25,14 @@
     <form action="{{ route('emails.update', $email->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда добавили: <strong>{{ $email->created_at }}</strong></p>
+                <p>Когда добавили: <strong>{{ $email->created_at ?? 'Не указана'}}</strong></p>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 mb-3">
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда последний раз меняли: <strong>{{ $email->updated_at }}</strong></p>
+                <p>Когда последний раз меняли: <strong>{{ $email->updated_at ?? 'Не указана'}}</strong></p>
             </div>
         </div>
         <div class="row mb-3">

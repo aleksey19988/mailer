@@ -20,11 +20,13 @@
         <table class="table table-striped">
             <tr>
                 <th>Наименование</th>
+                <th>Дата празднования</th>
                 <th>Действия</th>
             </tr>
             @foreach ($holidays as $holiday)
                 <tr>
                     <td>{{ $holiday->name }}</td>
+                    <td>{{ $holiday->date_of_celebration }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('holidays.show', $holiday->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('holidays.edit', $holiday->id) }}">Редактировать</a>
