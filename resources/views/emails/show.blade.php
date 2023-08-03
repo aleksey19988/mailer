@@ -15,6 +15,10 @@
     <div class="row mb-3">
         <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="form-group">
+                <div class="id-container">
+                    <strong>ID:</strong>
+                    #{{ $email->id }}
+                </div>
                 <div class="email_address-container">
                     <strong>Email:</strong>
                     {{ $email->email_address }}

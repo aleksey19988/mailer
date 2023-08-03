@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\HolidayController;
@@ -27,3 +28,4 @@ Route::resource('emails', EmailController::class);
 Route::resource('locations', LocationController::class);
 Route::resource('request-types', HolidayController::class);
 Route::resource('holidays', HolidayController::class);
+Route::resource('departments', DepartmentController::class);

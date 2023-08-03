@@ -10,8 +10,11 @@ class Department extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+    protected $fillable = ['name', 'email_id'];
+
     public function email(): HasOne
     {
-        return $this->hasOne(Department::class);
+        return $this->hasOne(Email::class, 'id', 'email_id');
     }
 }

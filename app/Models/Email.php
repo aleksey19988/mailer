@@ -20,13 +20,13 @@ class Email extends Model
         ];
     }
 
-    public function department(): HasOne
-    {
-        return $this->hasOne(Department::class);
-    }
-
-    public function employee()
-    {
-        return $this->hasOne(Employee::class);
-    }
+//    public function department(): HasOne
+//    {
+//        return $this->hasOne(Department::class);
+//    }
+//
+//    public function employee()
+//    {
+//        return $this->hasOne(Employee::class);
+//    }
 }
