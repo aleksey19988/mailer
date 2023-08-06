@@ -14,13 +14,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Сотрудники');
+
             $table->id();
             $table->foreignId('department_id')->comment('ID отдела')->constrained()->onDelete('cascade');
             $table->foreignId('branch_id')->comment('ID филиала')->constrained()->onDelete('cascade');
             $table->foreignId('position_id')->comment('ID должности')->constrained()->onDelete('cascade');
             $table->string('first_name')->comment('Имя');
             $table->string('last_name')->comment('Фамилия');
-            $table->string('patronymic')->comment('Отчество');
+            $table->string('patronymic')->nullable()->comment('Отчество');
             $table->string('email')->comment('Электронная почта сотрудника');
             $table->timestamp('birthday')->comment('Дата рождения');
             $table->timestamps();

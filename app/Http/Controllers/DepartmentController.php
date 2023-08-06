@@ -18,7 +18,7 @@ class DepartmentController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $departments = Department::all();
-        return view('departments.index', compact('departments'))->with('email_address', (new \Illuminate\Http\Request)->get('email_address'));
+        return view('departments.index', compact('departments'));
     }
 
     /**
@@ -26,8 +26,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $emails = Email::all();
-        return view('departments.create', compact('emails'));
+        return view('departments.create');
     }
 
     /**
@@ -40,9 +39,8 @@ class DepartmentController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'email_id' => ['required'],
+            'email' => ['required', 'email'],
         ], $messages);
-        //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 
         if ($validator->fails()) {
             return redirect(route('departments.create'))
@@ -68,9 +66,8 @@ class DepartmentController extends Controller
     public function edit(string $id)
     {
         $department = Department::query()->findOrFail($id);
-        $emails = Email::all();
 
-        return view('departments.edit', compact('department', 'emails'));
+        return view('departments.edit', compact('department'));
     }
 
     /**
@@ -83,17 +80,18 @@ class DepartmentController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'email_id' => ['required'],
+            'email' => ['required', 'email'],
         ], $messages);
         //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 
         if ($validator->fails()) {
-            return redirect(route('departments.create'))
+            return redirect(route('departments.update'))
                 ->withErrors($validator)
                 ->withInput();
         }
-        Department::query()->find($id)->update($validator->validated());
-        return redirect()->route('departments.index')->with('success', 'Отдел успешно обновлён');
+        $department = Department::query()->findOrFail($id);
+        $department->update($validator->validated());
+        return redirect()->route('departments.index')->with('success', 'Отдел "' . $department->name . '" успешно обновлён');
     }
 
     /**

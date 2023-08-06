@@ -15,6 +15,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Лог запросов к API ИИ');
+
             $table->id();
             $table->dateTime('created_at')->comment('Дата создания запроса');
             $table->string('request_type');

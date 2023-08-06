@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row mb-5">
+    <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left mb-5">
+            <div class="pull-left mb-3">
                 <h2>Список праздников</h2>
             </div>
             <div class="pull-right">
@@ -26,7 +26,13 @@
             @foreach ($holidays as $holiday)
                 <tr>
                     <td>{{ $holiday->name }}</td>
-                    <td>{{ $holiday->date_of_celebration }}</td>
+                    <td>
+                        @if($holiday->date_of_celebration)
+                            {{ $holiday->date_of_celebration }}
+                        @else
+                            <p class="text-danger">Не указана</p>
+                        @endif
+                    </td>
                     <td>
                         <a class="btn btn-info" href="{{ route('holidays.show', $holiday->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('holidays.edit', $holiday->id) }}">Редактировать</a>

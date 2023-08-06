@@ -4,10 +4,10 @@
     <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Добавление новой площадки</h2>
+                <h2>Добавление новой должности</h2>
             </div>
-            <div class="pull-right mb-3">
-                <a class="btn btn-primary" href="{{ route('locations.index') }}">Вернуться</a>
+            <div class="pull-right">
+                <a class="btn btn-primary" href="{{ route('positions.index') }}">Вернуться</a>
             </div>
         </div>
     </div>
@@ -22,13 +22,13 @@
         </div>
     @endif
 
-    <form action="{{ route('locations.store') }}" method="POST">
+    <form action="{{ route('positions.store') }}" method="POST">
         @csrf
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="form-group">
-                    <strong>Площадка:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Например, Саранск">
+                <div class="form-group mb-3">
+                    <strong>Имя должности:</strong>
+                    <input type="text" name="name" class="form-control" placeholder="Например, супервайзер">
                 </div>
             </div>
         </div>

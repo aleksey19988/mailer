@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RequestType;
+use App\Models\Position;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RequestTypeController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $requestTypes = RequestType::all();
-        return view('request-types.index', compact('requestTypes'));
+        $positions = Position::all();
+        return view('positions.index', compact('positions'));
     }
 
     /**
@@ -22,7 +25,7 @@ class RequestTypeController extends Controller
      */
     public function create()
     {
-        return view('request-types.create');
+        return view('positions.create');
     }
 
     /**
@@ -38,12 +41,12 @@ class RequestTypeController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('request-types.create'))
+            return redirect(route('positions.create'))
                 ->withErrors($validator)
                 ->withInput();
         }
-        RequestType::query()->create($validator->validated());
-        return redirect()->route('request-types.index')->with('success', 'Тип запроса успешно добавлен');
+        Position::query()->create($validator->validated());
+        return redirect()->route('positions.index')->with('success', 'Должность успешно добавлена');
     }
 
     /**
@@ -51,8 +54,8 @@ class RequestTypeController extends Controller
      */
     public function show(string $id)
     {
-        $requestType = RequestType::query()->findOrFail($id);
-        return view('request-types.show', compact('requestType'));
+        $position = Position::query()->findOrFail($id);
+        return view('positions.show', compact('position'));
     }
 
     /**
@@ -60,8 +63,9 @@ class RequestTypeController extends Controller
      */
     public function edit(string $id)
     {
-        $requestType = RequestType::query()->findOrFail($id);
-        return view('request-types.edit', compact('requestType'));
+        $position = Position::query()->findOrFail($id);
+
+        return view('positions.edit', compact('position'));
     }
 
     /**
@@ -75,14 +79,16 @@ class RequestTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
         ], $messages);
+        //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 
         if ($validator->fails()) {
-            return redirect(route('request-types.create'))
+            return redirect(route('positions.update'))
                 ->withErrors($validator)
                 ->withInput();
         }
-        RequestType::query()->findOrFail($id)->update($validator->validated());
-        return redirect()->route('request-types.index')->with('success', 'Имя запроса успешно обновлено');
+        $position = Position::query()->findOrFail($id);
+        $position->update($validator->validated());
+        return redirect()->route('positions.index')->with('success', 'Должность "' . $position->name . '" успешно обновлена');
     }
 
     /**
@@ -90,7 +96,7 @@ class RequestTypeController extends Controller
      */
     public function destroy(string $id)
     {
-        RequestType::query()->findOrFail($id)->delete();
-        return redirect()->route('request-types.index')->with('success', 'Имя запроса успешно удалено');
+        Position::query()->findOrFail($id)->delete();
+        return redirect(route('positions.index'))->with('success', 'Должность успешно добавлена!');
     }
 }

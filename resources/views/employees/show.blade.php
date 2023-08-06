@@ -7,8 +7,8 @@
                 <h2>Просмотр</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('locations.index') }}">Вернуться</a>
-                <a class="btn btn-primary" href="{{ route('locations.edit', $location) }}">Редактировать</a>
+                <a class="btn btn-primary" href="{{ route('branches.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('branches.edit', $branch) }}">Редактировать</a>
             </div>
         </div>
     </div>
@@ -18,19 +18,19 @@
             <div class="form-group">
                 <div class="email_address-container">
                     <strong>Наименование:</strong>
-                    {{ $location->name }}
+                    {{ $branch->name }}
                 </div>
                 <div class="created_at-container">
                     <strong>Дата создания:</strong>
-                    {{ $location->created_at }}
+                    {{ $branch->created_at }}
                 </div>
                 <div class="updated_at-container">
                     <strong>Дата обновления:</strong>
-                    {{ $location->updated_at }}
+                    {{ $branch->updated_at }}
                 </div>
                 <div class="deleted_at-container">
                     <strong>Активен:</strong>
-                    {{ is_null($location->deleted_at) ? 'Да' : 'Нет' }}
+                    {{ is_null($branch->deleted_at) ? 'Да' : 'Нет' }}
                 </div>
             </div>
         </div>

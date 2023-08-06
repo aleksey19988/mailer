@@ -14,6 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Лог отправки писем');
+
             $table->id();
             $table->foreignId('holiday_id')->comment('ID праздника')->constrained()->onDelete('cascade');
             $table->jsonb('addressee_letter_email_ids')->comment('Список id email-ов получателей письма');

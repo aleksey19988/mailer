@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row mb-5">
+    <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left mb-5">
+            <div class="pull-left mb-3">
                 <h2>Список отделов</h2>
             </div>
             <div class="pull-right">
@@ -26,7 +26,7 @@
             @foreach ($departments as $department)
                 <tr>
                     <td>{{ $department->name }}</td>
-                    <td>{{ $department->email->email_address }}</td>
+                    <td>{{ $department->email }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('departments.show', $department->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('departments.edit', $department->id) }}">Редактировать</a>

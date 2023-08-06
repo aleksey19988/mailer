@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row mb-5">
+    <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left mb-5">
-                <h2>Список площадок </h2>
+            <div class="pull-left mb-3">
+                <h2>Список должностей</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('locations.create') }}">Добавить площадку</a>
+                <a class="btn btn-success" href="{{ route('positions.create') }}">Добавить должность</a>
             </div>
         </div>
     </div>
@@ -16,19 +16,19 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    @if(!empty($locations->all()))
+    @if(!empty($positions->all()))
         <table class="table table-striped">
             <tr>
-                <th>Наименование</th>
+                <th>Наименование должности</th>
                 <th>Действия</th>
             </tr>
-            @foreach ($locations as $location)
+            @foreach ($positions as $position)
                 <tr>
-                    <td class="email-address-header">{{ $location->name }}</td>
+                    <td>{{ $position->name }}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ route('locations.show', $location->id) }}">Просмотр</a>
-                        <a class="btn btn-primary" href="{{ route('locations.edit', $location->id) }}">Редактировать</a>
-                        <form action="{{ route('locations.destroy', $location->id) }}" method="POST" class="delete-item-form">
+                        <a class="btn btn-info" href="{{ route('positions.show', $position->id) }}">Просмотр</a>
+                        <a class="btn btn-primary" href="{{ route('positions.edit', $position->id) }}">Редактировать</a>
+                        <form action="{{ route('positions.destroy', $position->id) }}" method="POST" class="delete-item-form">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Удалить</button>
@@ -39,9 +39,7 @@
         </table>
     @else
         <div class="alert alert-primary" role="alert">
-            Самое время добавить первую площадку!
+            Самое время добавить первую должность!
         </div>
     @endif
-
-
 @endsection

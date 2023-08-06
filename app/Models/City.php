@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Location extends Model
+class City extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name'];
 
-    public function employees()
+    public function branches(): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Branch::class);
     }
 }

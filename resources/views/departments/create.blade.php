@@ -31,12 +31,8 @@
                     <input type="text" name="name" class="form-control" placeholder="Например, бухгалтерия">
                 </div>
                 <div class="form-group mb-3">
-                    <strong><label for="email_id">Почта отдела:</label></strong>
-                    <select class="form-select" name="email_id" id="email_id">
-                        @foreach($emails as $email)
-                            <option value="{{ $email->id }}">{{ $email->email_address }}</option>
-                        @endforeach
-                    </select>
+                    <strong>Почта отдела:</strong>
+                    <input type="email" name="email" class="form-control" placeholder="test@example.com">
                 </div>
             </div>
         </div>

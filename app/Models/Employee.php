@@ -9,13 +9,18 @@ class Employee extends Model
 {
     use HasFactory;
 
-    public function email()
+    public function department()
     {
-        return $this->hasOne(Email::class);
+        return $this->hasOne(Department::class);
     }
 
-    public function location()
+    public function position()
     {
-        return $this->hasOne(Location::class);
+        return $this->hasOne(Position::class);
+    }
+
+    public function branch()
+    {
+        return $this->hasOne(Branch::class);
     }
 }

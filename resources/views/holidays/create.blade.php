@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <strong>Дата празднования:</strong>
-                    <input type="text" name="date_of_celebration" class="form-control" placeholder="{{ \Carbon\Carbon::now()->format('d.m.Y') }}" value="{{ \Carbon\Carbon::now()->format('d.m.Y') }}">
+                    <input type="text" name="date_of_celebration" class="form-control" placeholder="{{ \Carbon\Carbon::now()->format('d.m.Y') }}" value="">
                     <small class="text-secondary">Не обязательно для дня рождения</small>
                 </div>
             </div>

@@ -4,10 +4,10 @@
     <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Добавление нового Email-а</h2>
+                <h2>Добавление нового города</h2>
             </div>
-            <div class="pull-right mb-3">
-                <a class="btn btn-primary" href="{{ route('emails.index') }}">Вернуться</a>
+            <div class="pull-right mb-3 mt-3">
+                <a class="btn btn-primary" href="{{ route('cities.index') }}">Вернуться</a>
             </div>
         </div>
     </div>
@@ -22,18 +22,18 @@
         </div>
     @endif
 
-    <form action="{{ route('emails.store') }}" method="POST">
+    <form action="{{ route('cities.store') }}" method="POST">
         @csrf
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
-                    <strong>Email:</strong>
-                    <input type="email" name="email_address" class="form-control" placeholder="Email">
+                    <strong>Город:</strong>
+                    <input type="text" name="name" class="form-control" placeholder="Например, Саранск">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4">
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </div>
     </form>
 @endsection

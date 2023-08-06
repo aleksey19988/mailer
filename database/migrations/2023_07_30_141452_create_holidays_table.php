@@ -14,6 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Список праздников');
+
             $table->id();
             $table->string('name', 255)->comment('Наименование праздника');
             $table->timestamp('date_of_celebration')->nullable()->comment('Дата празднования');

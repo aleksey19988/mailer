@@ -14,10 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Должности');
+
             $table->id();
             $table->string('name')->comment('Наименование должности');
             $table->timestamps();
-
             $table->softDeletes();
         });
     }

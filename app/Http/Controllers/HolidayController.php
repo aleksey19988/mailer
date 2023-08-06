@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Holiday;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,10 +36,16 @@ class HolidayController extends Controller
         ];
 
         $requestData = $request->all();
-        $requestData['date_of_celebration'] = strtotime($requestData['date_of_celebration']);
-        $validator = Validator::make($request->all(), [
+        $dateOfCelebration = $requestData['date_of_celebration'];
+        if ($dateOfCelebration) {
+            $requestData['date_of_celebration'] = strtotime($dateOfCelebration);
+        }
+        $formData = $request->all();
+        $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $formData['date_of_celebration'])->toDateTimeString();
+
+        $validator = Validator::make($formData, [
             'name' => ['required'],
-            'date_of_celebration' => 'string',
+            'date_of_celebration' => ['string'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -76,8 +83,12 @@ class HolidayController extends Controller
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
-        $validator = Validator::make($request->all(), [
+        $formData = $request->all();
+        $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $formData['date_of_celebration'])->toDateTimeString();
+
+        $validator = Validator::make($formData, [
             'name' => ['required'],
+            'date_of_celebration' => ['string']
         ], $messages);
 
         if ($validator->fails()) {

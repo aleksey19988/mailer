@@ -14,6 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            $table->comment('Отделы');
+
             $table->id();
             $table->string('name')->comment('Наименование отдела');
             $table->string('email')->comment('Электронная почта отдела');

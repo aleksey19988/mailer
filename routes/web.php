@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\LocationController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
-use App\Http\Controllers\RequestTypeController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,14 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
-Route::resource('emails', EmailController::class);
-Route::resource('locations', LocationController::class);
-Route::resource('request-types', RequestTypeController::class);
+Route::resource('cities', CityController::class);
+Route::resource('branches', BranchController::class);
 Route::resource('holidays', HolidayController::class);
 Route::resource('departments', DepartmentController::class);
+Route::resource('positions', PositionController::class);
+Route::resource('employees', EmployeeController::class);
