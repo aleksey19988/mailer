@@ -35,17 +35,14 @@ class HolidayController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
 
-        $requestData = $request->all();
-        $dateOfCelebration = $requestData['date_of_celebration'];
-        if ($dateOfCelebration) {
-            $requestData['date_of_celebration'] = strtotime($dateOfCelebration);
-        }
         $formData = $request->all();
-        $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $formData['date_of_celebration'])->toDateTimeString();
-
+        $dateOfCelebration = $formData['date_of_celebration'];
+        if ($dateOfCelebration) {
+            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $dateOfCelebration)->toDateTimeString();
+        }
         $validator = Validator::make($formData, [
             'name' => ['required'],
-            'date_of_celebration' => ['string'],
+            'date_of_celebration' => ['max:255'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -84,11 +81,14 @@ class HolidayController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
-        $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $formData['date_of_celebration'])->toDateTimeString();
+        $dateOfCelebration = $formData['date_of_celebration'];
+        if ($dateOfCelebration) {
+            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $dateOfCelebration)->toDateTimeString();
+        }
 
         $validator = Validator::make($formData, [
             'name' => ['required'],
-            'date_of_celebration' => ['string']
+            'date_of_celebration' => ['max:255'],
         ], $messages);
 
         if ($validator->fails()) {

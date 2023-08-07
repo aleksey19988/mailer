@@ -28,7 +28,7 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
                     <strong>Имя праздника:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Например, день рождения">
+                    <input type="text" name="name" class="@error('name') is-invalid @enderror form-control" placeholder="Например, день рождения">
                 </div>
                 <div class="form-group mb-3">
                     <strong>Дата празднования:</strong>

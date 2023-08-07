@@ -16,7 +16,7 @@
             <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
         </div>
     </nav>
-    <div class="container pt-3 col-6">
+    <div class="container pt-3">
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

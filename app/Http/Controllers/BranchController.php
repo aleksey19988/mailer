@@ -37,7 +37,6 @@ class BranchController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
-        $formData['opening_date'] = Carbon::createFromFormat('d.m.Y', $formData['opening_date'])->toDateTimeString();
         $validator = Validator::make($formData, [
             'name' => ['required'],
             'city_id' => ['required'],
@@ -50,8 +49,10 @@ class BranchController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        $formData['opening_date'] = Carbon::createFromFormat('d.m.Y', $formData['opening_date'])->toDateTimeString();
+
         $branch = Branch::query()->create($validator->validated());
-        return redirect()->route('branches.index')->with('success', 'Филиал ' . $branch->name .' успешно добавлен');
+        return redirect()->route('branches.index')->with('success', 'Филиал "' . $branch->name .'" успешно добавлен');
     }
 
     /**
@@ -69,7 +70,8 @@ class BranchController extends Controller
     public function edit(string $id)
     {
         $branch = Branch::query()->findOrFail($id);
-        return view('branches.edit', compact('branch'));
+        $cities = City::all();
+        return view('branches.edit', compact('branch', 'cities'));
     }
 
     /**
@@ -92,11 +94,10 @@ class BranchController extends Controller
                 ->withInput();
         }
         $branch = Branch::query()->findOrFail($id);
-        $oldBranchName = $branch->name;
-
         $branch->update($validator->validated());
-        $newBranchName = $branch->name;
-        return redirect()->route('branches.index')->with('success', "Имя филиала успешно обновлено с '${oldBranchName}' на '${newBranchName}'");
+        $branchName = $branch->name;
+
+        return redirect()->route('branches.index')->with('success', "Филиал ${branchName} был успещно обновлён");
     }
 
     /**

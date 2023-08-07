@@ -37,9 +37,25 @@
         </div>
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="form-group">
-                    <strong>Филиал:</strong>
+                <div class="form-group mb-3">
+                    <strong>Наименование филиала:</strong>
                     <input type="text" name="name" value="{{ $branch->name }}" class="form-control" placeholder="Например, Липецк">
+                </div>
+                <div class="form-group mb-3">
+                    <strong>Город:</strong>
+                    <select class="form-select" name="city_id" id="">
+                        @foreach($cities as $city)
+                            <option value="{{ $city->id }}" {{ $branch->city_id == $city->id ? 'selected' : ''}}>{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <strong>Дата открытия:</strong>
+                    <input type="text" name="opening_date" class="form-control" placeholder="01.01.1991" value="{{ $branch->opening_date }}">
+                </div>
+                <div class="form-group mb-3">
+                    <strong>Адрес:</strong>
+                    <input type="text" name="address" class="form-control" placeholder="Липецк, ул. Ленина, 16" value="{{ $branch->address }}">
                 </div>
             </div>
         </div>
