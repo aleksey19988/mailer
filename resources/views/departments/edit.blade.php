@@ -4,10 +4,10 @@
     <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Редактирование праздника</h2>
+                <h2>Редактирование отдела</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('holidays.index') }}"> На главную</a>
+                <a class="btn btn-primary" href="{{ route('departments.index') }}">Вернуться</a>
             </div>
         </div>
     </div>
@@ -27,12 +27,12 @@
         @method('PUT')
         <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда добавили: <strong>{{ $department->created_at ?? 'Неизвестно' }}</strong></p>
+                <p>Когда добавили: <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $department->created_at)->format('d.m.Y') ?? 'Неизвестно' }}</strong></p>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда последний раз меняли: <strong>{{ $department->updated_at ?? 'Неизвестно' }}</strong></p>
+                <p>Когда последний раз меняли: <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $department->updated_at)->format('d.m.Y') ?? 'Неизвестно' }}</strong></p>
             </div>
         </div>
         <div class="row mb-3">

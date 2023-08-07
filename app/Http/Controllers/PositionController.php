@@ -38,6 +38,7 @@ class PositionController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
+            'description' => ['string', 'max:1000'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -78,6 +79,7 @@ class PositionController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
+            'description' => ['string', 'max:1000'],
         ], $messages);
         //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 

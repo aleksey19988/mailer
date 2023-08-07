@@ -31,8 +31,8 @@
                     <input type="text" name="name" class="@error('name') is-invalid @enderror form-control" placeholder="Например, день рождения">
                 </div>
                 <div class="form-group mb-3">
-                    <strong>Дата празднования:</strong>
-                    <input type="text" name="date_of_celebration" class="form-control" placeholder="{{ \Carbon\Carbon::now()->format('d.m.Y') }}" value="">
+                    <strong>День и месяц празднования:</strong>
+                    <input type="text" name="date_of_celebration" class="form-control" placeholder="Например, 16.07">
                     <small class="text-secondary">Не обязательно для дня рождения</small>
                 </div>
             </div>

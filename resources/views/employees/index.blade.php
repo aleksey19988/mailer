@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.app')
 @section('content')
     <div class="row mb-3">
@@ -20,21 +21,20 @@
         <table class="table table-striped">
             <tr>
                 <th>Полное имя</th>
-                <th>Отдел</th>
-                <th>Филиал</th>
-                <th>Должность</th>
+                <th>Email</th>
+                <th>Дата рождения</th>
                 <th>Действия</th>
             </tr>
             @foreach ($employees as $employee)
                 <tr>
                     <td class="full-name-header">{{ $employee->first_name }} {{ $employee->last_name }} {{ $employee->patronymic }}</td>
-                    <td class="department-header">{{ $employee->department->name }}</td>
-                    <td class="branch-header">{{ $employee->branch->name }}</td>
-                    <td class="position-header">{{ $employee->position->name }}</td>
+                    <td class="branch-header">{{ $employee->email }}</td>
+                    <td class="branch-header">{{ Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m.Y') }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('employees.show', $employee->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('employees.edit', $employee->id) }}">Редактировать</a>
-                        <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="delete-item-form">
+                        <form action="{{ route('employees.destroy', $employee->id) }}" method="POST"
+                              class="delete-item-form">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Удалить</button>
@@ -48,6 +48,5 @@
             Самое время добавить первого сотрудника!
         </div>
     @endif
-
 
 @endsection

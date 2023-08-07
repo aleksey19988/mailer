@@ -7,7 +7,7 @@
                 <h2>Редактирование должности</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('holidays.index') }}"> На главную</a>
+                <a class="btn btn-primary" href="{{ route('positions.index') }}"> На главную</a>
             </div>
         </div>
     </div>
@@ -38,8 +38,16 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
-                    <strong>Имя должности:</strong>
-                    <input type="text" name="name" value="{{ $position->name }}" class="form-control" placeholder="Например, супервайзер">
+                    <label for="name">
+                        <strong>Имя должности:</strong>
+                    </label>
+                    <input type="text" id="name" name="name" value="{{ $position->name }}" class="form-control" placeholder="Например, супервайзер">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="description">
+                        <strong>Описание:</strong>
+                    </label>
+                    <textarea id="description" name="name" class="form-control">{{ $position->description }}</textarea>
                 </div>
             </div>
         </div>

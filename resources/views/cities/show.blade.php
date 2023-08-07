@@ -12,35 +12,42 @@
             </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="form-group">
-                <div class="name-container">
-                    <strong>Наименование:</strong>
-                    {{ $city->name }}
-                </div>
-                <div class="branches-container">
-                    <strong>Филиалы:</strong>
-                    <ol class="branches-list">
-                        @foreach($city->branches as $branch)
-                            <li class="branch-list-item">{{ $branch->name }}</li>
-                        @endforeach
-                    </ol>
-                </div>
-                <div class="created_at-container">
-                    <strong>Дата создания:</strong>
-                    {{ $city->created_at }}
-                </div>
-                <div class="updated_at-container">
-                    <strong>Дата обновления:</strong>
-                    {{ $city->updated_at }}
-                </div>
-                <div class="deleted_at-container">
-                    <strong>Активен:</strong>
-                    {{ is_null($city->deleted_at) ? 'Да' : 'Нет' }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Поле</th>
+            <th scope="col">Значение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Наименование</th>
+            <td>{{ $city->name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Филиалы</th>
+            <td>
+                @if(!empty($city->branches->all()))
+                    @foreach($city->branches as $branch)
+                        <p class="branch-list-item">- {{ $branch->name }}</p>
+                    @endforeach
+                @else
+                    <span class="text-danger">Не указано</span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Дата создания записи</th>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $city->updated_at)->format('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Когда обновляли запись последний раз</th>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $city->updated_at)->format('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Активен</th>
+            <td>{{ is_null($city->deleted_at) ? 'Да' : 'Нет' }} </td>
+        </tr>
+        </tbody>
+    </table>
 @endsection

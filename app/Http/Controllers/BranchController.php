@@ -15,7 +15,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branches = Branch::all();
+        $branches = Branch::all()->sortBy('name');
         return view('branches.index', compact('branches'));
     }
 
@@ -97,7 +97,7 @@ class BranchController extends Controller
         $branch->update($validator->validated());
         $branchName = $branch->name;
 
-        return redirect()->route('branches.index')->with('success', "Филиал ${branchName} был успещно обновлён");
+        return redirect()->route('branches.index')->with('success', "Филиал '${branchName}' был успешно обновлён");
     }
 
     /**

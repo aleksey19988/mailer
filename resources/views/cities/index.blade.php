@@ -10,13 +10,15 @@
             </div>
         </div>
     </div>
-
     @if ($message = \Illuminate\Support\Facades\Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
     @if(!empty($cities->all()))
+        <div class="alert alert-info" role="alert">
+            Если ты хочешь добавить филиал, тебе <a href="{{ route('branches.create') }}">сюда</a>!
+        </div>
         <table class="table table-striped">
             <tr>
                 <th>Наименование</th>
@@ -27,11 +29,13 @@
                 <tr>
                     <td class="city-header">{{ $city->name }}</td>
                     <td class="branches-header">
-                        <ol class="branches-list">
+                        @if(!empty($city->branches->all()))
                             @foreach($city->branches as $branch)
-                                <li class="branch-list-item">{{ $branch->name }}</li>
+                                <p class="branch-list-item">- {{ $branch->name }}</p>
                             @endforeach
-                        </ol>
+                        @else
+                            <span class="text-danger">Не указано</span>
+                        @endif
                     </td>
                     <td>
                         <a class="btn btn-info" href="{{ route('cities.show', $city->id) }}">Просмотр</a>

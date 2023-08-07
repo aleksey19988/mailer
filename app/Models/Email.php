@@ -19,14 +19,4 @@ class Email extends Model
             'email_address' => ['required', 'email'],
         ];
     }
-
-//    public function department(): HasOne
-//    {
-//        return $this->hasOne(Department::class);
-//    }
-//
-//    public function employee()
-//    {
-//        return $this->hasOne(Employee::class);
-//    }
 }

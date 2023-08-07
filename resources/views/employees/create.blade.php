@@ -67,7 +67,7 @@
                         <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <strong>Должность:</strong>
-                                <select class="form-select" name="branch_id" id="">
+                                <select class="form-select" name="position_id" id="">
                                     @foreach($positions as $position)
                                         <option value="{{ $position->id }}">{{ $position->name }}</option>
                                     @endforeach

@@ -12,4 +12,9 @@ class Department extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'email'];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

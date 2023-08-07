@@ -12,36 +12,34 @@
             </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="form-group">
-                <div class="email_address-container">
-                    <p>
-                        <strong>Наименование отдела: </strong>{{ $position->name }}
-                    </p>
-                </div>
-                <div class="email_address-container">
-                    <p>
-                        <strong>Адрес электронной почты отдела: </strong>
-                        {{ is_null($position->email->email_address) ? 'Не указана' : $position->email->email_address }}
-                    </p>
-                </div>
-                <div class="created_at-container">
-                    <p>
-                        <strong>Дата создания: </strong>{{ $position->created_at ?? 'Не указана' }}
-                    </p>
-                </div>
-                <div class="updated_at-container">
-                    <p>
-                        <strong>Дата обновления: </strong>{{ $position->updated_at ?? 'Не указана'}}
-                    </p>
-                </div>
-                <div class="deleted_at-container">
-                    <strong>Активен:</strong>
-                    {{ is_null($position->deleted_at) ? 'Да' : 'Нет' }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Поле</th>
+            <th scope="col">Значение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Наименование отдела</th>
+            <td>{{ $position->name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Адрес электронной почты отдела</th>
+            <td>{{ is_null($position->email) ? 'Не указана' : $position->email }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Дата создания записи</th>
+            <td>{{ $position->created_at }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Когда обновляли запись последний раз</th>
+            <td>{{ $position->updated_at }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Активен</th>
+            <td>{{ is_null($position->deleted_at) ? 'Да' : 'Нет' }} </td>
+        </tr>
+        </tbody>
+    </table>
 @endsection

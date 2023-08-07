@@ -12,27 +12,38 @@
             </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="form-group">
-                <div class="email_address-container">
-                    <strong>Наименование:</strong>
-                    {{ $branch->name }}
-                </div>
-                <div class="created_at-container">
-                    <strong>Дата создания:</strong>
-                    {{ $branch->created_at }}
-                </div>
-                <div class="updated_at-container">
-                    <strong>Дата обновления:</strong>
-                    {{ $branch->updated_at }}
-                </div>
-                <div class="deleted_at-container">
-                    <strong>Активен:</strong>
-                    {{ is_null($branch->deleted_at) ? 'Да' : 'Нет' }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Поле</th>
+            <th scope="col">Значение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Наименование филиала</th>
+            <td>{{ $branch->name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Адрес</th>
+            <td>{{ $branch->address }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Дата открытия филиала</th>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->opening_date)->format('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Дата создания записи</th>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->created_at)->format('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Когда обновляли запись последний раз</th>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->updated_at)->format('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Активен</th>
+            <td>{{ is_null($branch->deleted_at) ? 'Да' : 'Нет' }} </td>
+        </tr>
+        </tbody>
+    </table>
 @endsection

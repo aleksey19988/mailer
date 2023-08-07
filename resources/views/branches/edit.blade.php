@@ -7,7 +7,7 @@
                 <h2>Редактирование филиала</h2>
             </div>
             <div class="pull-right mt-3">
-                <a class="btn btn-primary" href="{{ route('branches.index') }}">На главную</a>
+                <a class="btn btn-primary" href="{{ route('branches.index') }}">Вернуться</a>
             </div>
         </div>
     </div>
@@ -27,12 +27,12 @@
         @method('PUT')
         <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда добавили: <strong>{{ $branch->created_at ?? 'Неизвестно' }}</strong></p>
+                <p>Когда добавили: <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->created_at)->format('d.m.Y') ?? 'Неизвестно' }}</strong></p>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
             <div class="form-group">
-                <p>Когда последний раз меняли: <strong>{{ $branch->updated_at ?? 'Неизвестно'}}</strong></p>
+                <p>Когда последний раз меняли: <strong>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->updated_at)->format('d.m.Y') ?? 'Неизвестно'}}</strong></p>
             </div>
         </div>
         <div class="row mb-3">

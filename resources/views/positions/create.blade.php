@@ -27,8 +27,16 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
-                    <strong>Имя должности:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Например, супервайзер">
+                    <label for="name">
+                        <strong>Имя должности:</strong>
+                    </label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Например, супервайзер">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="description">
+                        <strong>Описание:</strong>
+                    </label>
+                    <textarea id="description" name="description" class="form-control"></textarea>
                 </div>
             </div>
         </div>

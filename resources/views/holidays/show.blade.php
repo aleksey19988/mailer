@@ -12,31 +12,34 @@
             </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="form-group">
-                <div class="email_address-container">
-                    <strong>Наименование:</strong>
-                    {{ $holiday->name }}
-                </div>
-                <div class="email_address-container">
-                    <strong>Дата празднования:</strong>
-                    {{ is_null($holiday->date_of_celebration) ? 'Не указана' : $holiday->date_of_celebration }}
-                </div>
-                <div class="created_at-container">
-                    <strong>Дата создания:</strong>
-                    {{ $holiday->created_at }}
-                </div>
-                <div class="updated_at-container">
-                    <strong>Дата обновления:</strong>
-                    {{ $holiday->updated_at }}
-                </div>
-                <div class="deleted_at-container">
-                    <strong>Активен:</strong>
-                    {{ is_null($holiday->deleted_at) ? 'Да' : 'Нет' }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Поле</th>
+            <th scope="col">Значение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Наименование праздника</th>
+            <td>{{ $holiday->name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">День и месяц празднования</th>
+            <td>{{ is_null($holiday->date_of_celebration) ? 'Не указана' : \Carbon\Carbon::parse($holiday->date_of_celebration)->format('d.m') }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Дата создания записи</th>
+            <td>{{ $holiday->created_at }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Когда обновляли запись последний раз</th>
+            <td>{{ $holiday->updated_at }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Активен</th>
+            <td>{{ is_null($holiday->deleted_at) ? 'Да' : 'Нет' }} </td>
+        </tr>
+        </tbody>
+    </table>
 @endsection

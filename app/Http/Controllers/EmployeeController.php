@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\City;
 use App\Models\Position;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,14 +61,28 @@ class EmployeeController extends Controller
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
-        $validator = Validator::make($request->all(), [
+
+        $formData = $request->all();
+        $birthday = $formData['birthday'];
+        if ($birthday) {
+            $formData['birthday'] = Carbon::createFromFormat('d.m.Y', $birthday)->toDateTimeString();
+        } else {
+            return redirect(route('employees.create'))
+                ->withErrors(['Нужно заполнить дату рождения!'])
+                ->withInput();
+        }
+
+        $validator = Validator::make($formData, [
             'first_name' => ['required'],
             'last_name' => ['required'],
             'department_id' => ['required'],
+            'position_id' => ['required'],
             'branch_id' => ['required'],
             'email' => ['required'],
             'birthday' => ['required'],
         ], $messages);
+
+
 
         if ($validator->fails()) {
             return redirect(route('employees.create'))
@@ -75,7 +90,7 @@ class EmployeeController extends Controller
                 ->withInput();
         }
         $employee = Employee::query()->create($validator->validated());
-        return redirect()->route('employees.index')->with('success', 'Филиал ' . $employee->name .' успешно добавлен');
+        return redirect()->route('employees.index')->with('success', 'Сотрудник успешно добавлен');
     }
 
     /**
@@ -93,7 +108,11 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $employee = Employee::query()->findOrFail($id);
-        return view('employees.edit', compact('employee'));
+        $positions = Position::all();
+        $departments = Department::all();
+        $branches = Branch::all();
+
+        return view('employees.edit', compact('employee', 'positions', 'departments', 'branches'));
     }
 
     /**
@@ -120,7 +139,7 @@ class EmployeeController extends Controller
 
         $employee->update($validator->validated());
         $newEmployeeName = $employee->name;
-        return redirect()->route('employees.index')->with('success', "Имя филиала успешно обновлено с '${oldEmployeeName}' на '${newEmployeeName}'");
+        return redirect()->route('employees.index')->with('success', "Сотруник успешно отредактирован");
     }
 
     /**
@@ -129,6 +148,6 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
         Employee::query()->find($id)->delete();
-        return redirect()->route('employees.index')->with('success', 'Филиал удален');
+        return redirect()->route('employees.index')->with('success', 'Сотрудник удалён');
     }
 }

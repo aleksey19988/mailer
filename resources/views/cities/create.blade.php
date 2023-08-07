@@ -27,8 +27,10 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
-                    <strong>Город:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Например, Саранск">
+                    <label for="name">
+                        <strong>Город:</strong>
+                    </label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Например, Саранск">
                 </div>
             </div>
         </div>

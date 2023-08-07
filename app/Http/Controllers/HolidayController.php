@@ -34,15 +34,13 @@ class HolidayController extends Controller
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
-
         $formData = $request->all();
-        $dateOfCelebration = $formData['date_of_celebration'];
-        if ($dateOfCelebration) {
-            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $dateOfCelebration)->toDateTimeString();
+        if ($formData['date_of_celebration']) {
+            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m', $formData['date_of_celebration'])->toDateTimeString();
         }
         $validator = Validator::make($formData, [
             'name' => ['required'],
-            'date_of_celebration' => ['max:255'],
+            'date_of_celebration' => ['string'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -81,14 +79,12 @@ class HolidayController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
-        $dateOfCelebration = $formData['date_of_celebration'];
-        if ($dateOfCelebration) {
-            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m.Y', $dateOfCelebration)->toDateTimeString();
+        if ($formData['date_of_celebration']) {
+            $formData['date_of_celebration'] = Carbon::createFromFormat('d.m', $formData['date_of_celebration'])->toDateTimeString();
         }
-
         $validator = Validator::make($formData, [
             'name' => ['required'],
-            'date_of_celebration' => ['max:255'],
+            'date_of_celebration' => ['string'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -96,6 +92,7 @@ class HolidayController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
         Holiday::query()->findOrFail($id)->update($validator->validated());
         return redirect()->route('holidays.index')->with('success', 'Праздник успешно обновлён');
     }

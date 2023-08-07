@@ -28,7 +28,7 @@
                     <td>{{ $holiday->name }}</td>
                     <td>
                         @if($holiday->date_of_celebration)
-                            {{ $holiday->date_of_celebration }}
+                            {{ \Carbon\Carbon::parse($holiday->date_of_celebration)->format('d.m') }}
                         @else
                             <p class="text-danger">Не указана</p>
                         @endif
