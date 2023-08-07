@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartmentController;
@@ -28,3 +29,5 @@ Route::resource('holidays', HolidayController::class);
 Route::resource('departments', DepartmentController::class);
 Route::resource('positions', PositionController::class);
 Route::resource('employees', EmployeeController::class);
+
+Route::get('api/index', [ApiController::class, 'index'])->name('api.index');
