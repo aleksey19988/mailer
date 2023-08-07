@@ -75,6 +75,7 @@ class EmployeeController extends Controller
         $validator = Validator::make($formData, [
             'first_name' => ['required'],
             'last_name' => ['required'],
+            'patronymic' => ['max:30'],
             'department_id' => ['required'],
             'position_id' => ['required'],
             'branch_id' => ['required'],
@@ -82,15 +83,12 @@ class EmployeeController extends Controller
             'birthday' => ['required'],
         ], $messages);
 
-
-
         if ($validator->fails()) {
             return redirect(route('employees.create'))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $employee = Employee::query()->create($validator->validated());
-        return redirect()->route('employees.index')->with('success', 'Сотрудник успешно добавлен');
+        return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно сохранены');
     }
 
     /**
@@ -122,24 +120,38 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $employee = Employee::query()->findOrFail($id);
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
-        $validator = Validator::make($request->all(), [
-            'name' => ['required'],
+        $formData = $request->all();
+        $birthday = $formData['birthday'];
+        if ($birthday) {
+            $formData['birthday'] = Carbon::createFromFormat('d.m.Y', $birthday)->toDateTimeString();
+        } else {
+            return redirect(route('employees.update', $employee))
+                ->withErrors(['Нужно заполнить дату рождения!'])
+                ->withInput();
+        }
+        $validator = Validator::make($formData, [
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'patronymic' => ['max:30'],
+            'department_id' => ['required'],
+            'position_id' => ['required'],
+            'branch_id' => ['required'],
+            'email' => ['required'],
+            'birthday' => ['required'],
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('employees.update'))
+            return redirect(route('employees.update', $employee))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $employee = Employee::query()->findOrFail($id);
-        $oldEmployeeName = $employee->name;
 
         $employee->update($validator->validated());
-        $newEmployeeName = $employee->name;
-        return redirect()->route('employees.index')->with('success', "Сотруник успешно отредактирован");
+        return redirect()->route('employees.index')->with('success', "Данные о сотруднике успешно отредактированы");
     }
 
     /**
@@ -148,6 +160,6 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
         Employee::query()->find($id)->delete();
-        return redirect()->route('employees.index')->with('success', 'Сотрудник удалён');
+        return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно отредактированы');
     }
 }

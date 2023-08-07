@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+    <form action="{{ route('employees.update', $employee) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <strong>Дата рождения:</strong>
-                    <input type="text" name="birthday" class="form-control" placeholder="01.01.1991" value="{{ $employee->birthday }}">
+                    <input type="text" name="birthday" class="form-control" placeholder="01.01.1991" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m.Y') }}">
                 </div>
             </div>
         </div>

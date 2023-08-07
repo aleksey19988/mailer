@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Branch extends Model
@@ -13,8 +12,8 @@ class Branch extends Model
 
     protected $fillable = ['city_id', 'name', 'opening_date', 'address'];
 
-    public function city(): HasOne
+    public function employees(): HasOne
     {
-        return $this->hasOne(City::class);
+        return $this->hasOne(Employee::class);
     }
 }
