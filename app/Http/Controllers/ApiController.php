@@ -93,7 +93,6 @@ class ApiController extends Controller
                 ]);
             }
 
-
         } catch (Exception $e) {
             return back()->with('error', 'Message could not be sent.');
         }
