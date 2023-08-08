@@ -7,7 +7,7 @@
                 <h2>Добавление нового города</h2>
             </div>
             <div class="pull-right mb-3 mt-3">
-                <a class="btn btn-primary" href="{{ route('cities.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('cities.index') }}">Все города</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                     <label for="name">
                         <strong>Город:</strong>
                     </label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Например, Саранск">
+                    <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Например, Саранск" value="{{ old('name') }}">
                 </div>
             </div>
         </div>

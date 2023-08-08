@@ -77,7 +77,7 @@ class HolidayController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Holiday $holiday)
     {
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
@@ -95,12 +95,12 @@ class HolidayController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('holidays.create'))
+            return redirect(route('holidays.edit', compact('holiday')))
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        Holiday::query()->findOrFail($id)->update($validator->validated());
+        $holiday->update($validator->validated());
         return redirect()->route('holidays.index')->with('success', 'Праздник успешно обновлён');
     }
 

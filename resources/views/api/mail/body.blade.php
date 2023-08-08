@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td>
-            <p style="color:white;font-weight:normal;margin:25px 0 35px;line-height:30px;font-size:20px">{{ $congratulationMessage }} &#128151;</p>
+            <p style="color:white;font-weight:normal;margin:25px 0 35px;line-height:30px;font-size:17px">{{ $congratulationMessage }} &#128151;</p>
         </td>
     </tr>
 </table>

@@ -7,7 +7,7 @@
                 <h2>Просмотр</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('cities.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('cities.index') }}">Все города</a>
                 <a class="btn btn-primary" href="{{ route('cities.edit', $city) }}">Редактировать</a>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <td>
                 @if(!empty($city->branches->all()))
                     @foreach($city->branches as $branch)
-                        <p class="branch-list-item">- {{ $branch->name }}</p>
+                        <span class="branch-list-item">- {{ $branch->name }}</span><br>
                     @endforeach
                 @else
                     <span class="text-danger">Не указано</span>

@@ -31,7 +31,7 @@
                     <td class="branches-header">
                         @if(!empty($city->branches->all()))
                             @foreach($city->branches as $branch)
-                                <p class="branch-list-item">- {{ $branch->name }}</p>
+                                <span class="branch-list-item">- {{ $branch->name }}</span><br>
                             @endforeach
                         @else
                             <span class="text-danger">Не указано</span>

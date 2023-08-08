@@ -7,7 +7,7 @@
                 <h2>Филиал: {{ $branch->name }}</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('branches.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('branches.index') }}">Все филалы</a>
                 <a class="btn btn-primary" href="{{ route('branches.edit', $branch) }}">Редактировать</a>
             </div>
         </div>

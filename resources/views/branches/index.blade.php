@@ -27,7 +27,7 @@
             @foreach ($branches as $branch)
                 <tr>
                     <td class="branch-name-header">{{ $branch->name }}</td>
-                    <td class="branch-opening_date-header">{{ $branch->opening_date }}</td>
+                    <td class="branch-opening_date-header">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->opening_date)->format('d.m.Y') }}</td>
                     <td class="branch-address-header col-4">{{ $branch->address }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('branches.show', $branch->id) }}">Просмотр</a>

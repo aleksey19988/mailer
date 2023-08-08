@@ -7,7 +7,7 @@
                 <h2>Редактирование города</h2>
             </div>
             <div class="pull-right mt-3">
-                <a class="btn btn-primary" href="{{ route('cities.index') }}">Венрнуться</a>
+                <a class="btn btn-primary" href="{{ route('cities.index') }}">Все города</a>
             </div>
         </div>
     </div>
@@ -38,8 +38,10 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group">
-                    <strong>Город:</strong>
-                    <input type="text" name="name" value="{{ $city->name }}" class="form-control" placeholder="Например, Липецк">
+                    <label for="name">
+                        <strong>Город:</strong>
+                    </label>
+                    <input type="text" id="name" name="name" value="{{ $city->name }}" class="form-control @error('name') is-invalid @enderror" placeholder="Например, Липецк">
                 </div>
             </div>
         </div>

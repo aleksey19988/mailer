@@ -73,7 +73,7 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Department $department)
     {
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
@@ -82,14 +82,13 @@ class DepartmentController extends Controller
             'name' => ['required'],
             'email' => ['required', 'email'],
         ], $messages);
-        //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 
         if ($validator->fails()) {
-            return redirect(route('departments.update'))
+            return redirect(route('departments.edit', compact('department')))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $department = Department::query()->findOrFail($id);
+
         $department->update($validator->validated());
         return redirect()->route('departments.index')->with('success', 'Отдел "' . $department->name . '" успешно обновлён');
     }

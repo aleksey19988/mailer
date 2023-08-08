@@ -7,7 +7,7 @@
                 <h2>Редактирование филиала</h2>
             </div>
             <div class="pull-right mt-3">
-                <a class="btn btn-primary" href="{{ route('branches.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('branches.index') }}">Все филиалы</a>
             </div>
         </div>
     </div>
@@ -38,24 +38,32 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
-                    <strong>Наименование филиала:</strong>
-                    <input type="text" name="name" value="{{ $branch->name }}" class="form-control" placeholder="Например, Липецк">
+                    <label for="name">
+                        <strong>Наименование филиала:</strong>
+                    </label>
+                    <input type="text" id="name" name="name" value="{{ $branch->name }}" class="form-control" placeholder="Например, Липецк">
                 </div>
                 <div class="form-group mb-3">
-                    <strong>Город:</strong>
-                    <select class="form-select" name="city_id" id="">
+                    <label for="city_id">
+                        <strong>Город:</strong>
+                    </label>
+                    <select class="form-select" name="city_id" id="city_id">
                         @foreach($cities as $city)
-                            <option value="{{ $city->id }}" {{ $branch->city_id == $city->id ? 'selected' : ''}}>{{ $city->name }}</option>
+                            <option value="{{ $city->id }}" {{ (int)$branch->city_id === (int)$city->id ? 'selected' : ''}}>{{ $city->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <strong>Дата открытия:</strong>
-                    <input type="text" name="opening_date" class="form-control" placeholder="01.01.1991" value="{{ $branch->opening_date }}">
+                    <label for="opening_date">
+                        <strong>Дата открытия:</strong>
+                    </label>
+                    <input type="text" id="opening_date" name="opening_date" class="form-control" placeholder="01.01.1991" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $branch->opening_date)->format('d.m.Y') }}">
                 </div>
                 <div class="form-group mb-3">
-                    <strong>Адрес:</strong>
-                    <input type="text" name="address" class="form-control" placeholder="Липецк, ул. Ленина, 16" value="{{ $branch->address }}">
+                    <label for="address">
+                        <strong>Адрес:</strong>
+                    </label>
+                    <input type="text" id="address" name="address" class="form-control" placeholder="Липецк, ул. Ленина, 16" value="{{ $branch->address }}">
                 </div>
             </div>
         </div>

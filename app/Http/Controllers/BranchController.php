@@ -79,7 +79,7 @@ class BranchController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Branch $branch)
     {
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
@@ -89,11 +89,11 @@ class BranchController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('branches.update'))
+            return redirect(route('branches.edit', compact('branch')))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $branch = Branch::query()->findOrFail($id);
+
         $branch->update($validator->validated());
         $branchName = $branch->name;
 

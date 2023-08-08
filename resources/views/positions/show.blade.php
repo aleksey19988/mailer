@@ -4,10 +4,10 @@
     <div class="row mb-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Просмотр должности</h2>
+                <h2>{{ $position->name }}</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('positions.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('positions.index') }}">Все должности</a>
                 <a class="btn btn-primary" href="{{ route('positions.edit', $position) }}">Редактировать</a>
             </div>
         </div>
@@ -39,7 +39,7 @@
         </tbody>
     </table>
     <div class="employees-container mt-5">
-        <h2>Список сотрудников на должности '{{ $position->name }}':</h2>
+        <h2>Список сотрудников на этой должности:</h2>
         @if($position->employees->all())
             <table class="table table-striped">
                 <thead>

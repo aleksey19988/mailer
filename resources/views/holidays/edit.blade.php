@@ -7,7 +7,7 @@
                 <h2>Редактирование праздника</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('holidays.index') }}"> На главную</a>
+                <a class="btn btn-primary" href="{{ route('holidays.index') }}">Все праздники</a>
             </div>
         </div>
     </div>
@@ -38,12 +38,20 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
-                    <strong>Праздник:</strong>
-                    <input type="text" name="name" value="{{ $holiday->name }}" class="form-control" placeholder="Например, Липецк">
+                    <label for="name">
+                        <strong>Праздник:</strong>
+                    </label>
+                    <input id="name" type="text" name="name" value="{{ $holiday->name }}"
+                           class="form-control @error('name') is-invalid @enderror" placeholder="Например, Липецк">
                 </div>
                 <div class="form-group mb-3">
-                    <strong>Дата празднования:</strong>
-                    <input type="text" name="date_of_celebration" value="{{ $holiday->date_of_celebration }}" class="form-control" placeholder="{{ \Carbon\Carbon::now()->format('d.m.Y') }}">
+                    <label for="date_of_celebration">
+                        <strong>Дата празднования:</strong>
+                    </label>
+                    <input id="date_of_celebration" type="text" name="date_of_celebration"
+                           value="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $holiday->date_of_celebration)->format('d.m') }}"
+                           class="form-control @error('name') is-invalid @enderror"
+                           placeholder="{{ \Carbon\Carbon::now()->format('d.m') }}">
                     <small class="text-secondary">Не обязательно для дня рождения</small>
                 </div>
             </div>

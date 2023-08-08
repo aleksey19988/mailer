@@ -31,7 +31,7 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'required' => 'Забыли заполнить кое что (:attribute)',
+            'required' => 'Забыли заполнить город',
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
@@ -69,25 +69,26 @@ class CityController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, City $city)
     {
+
         $messages = [
-            'required' => 'Забыли заполнить кое что (:attribute)',
+            'required' => 'Забыли заполнить город',
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('cities.update'))
+            return redirect(route('cities.edit', compact('city')))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $city = City::query()->findOrFail($id);
-        $oldCityName = $city->name;
 
+        $oldCityName = $city->name;
         $city->update($validator->validated());
         $newCityName = $city->name;
+
         return redirect()->route('cities.index')->with('success', "Имя города успешно обновлено с '${oldCityName}' на '${newCityName}'");
     }
 

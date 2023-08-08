@@ -6,7 +6,7 @@
                 <h2>{{ $employee->last_name }} {{ $employee->first_name }} {{ $employee->patronymic }}</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('employees.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('employees.index') }}">Все сотрудники</a>
                 <a class="btn btn-primary" href="{{ route('employees.edit', $employee) }}">Редактировать</a>
             </div>
         </div>

@@ -72,7 +72,7 @@ class PositionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Position $position)
     {
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
@@ -81,14 +81,13 @@ class PositionController extends Controller
             'name' => ['required'],
             'description' => ['string', 'max:1000'],
         ], $messages);
-        //todo: Добавить проверку на то, что пришедший id email-а существует в БД
 
         if ($validator->fails()) {
-            return redirect(route('positions.update'))
+            return redirect(route('positions.edit', compact('position')))
                 ->withErrors($validator)
                 ->withInput();
         }
-        $position = Position::query()->findOrFail($id);
+
         $position->update($validator->validated());
         return redirect()->route('positions.index')->with('success', 'Должность "' . $position->name . '" успешно обновлена');
     }

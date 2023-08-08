@@ -7,7 +7,7 @@
                 <h2>Добавление новой должности</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('positions.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('positions.index') }}">Все должности</a>
             </div>
         </div>
     </div>
@@ -30,13 +30,13 @@
                     <label for="name">
                         <strong>Имя должности:</strong>
                     </label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Например, супервайзер">
+                    <input type="text" id="name" name="name" class="form-control @error('') is-invalid @enderror" value="{{ old('name') }}" placeholder="Например, супервайзер">
                 </div>
                 <div class="form-group mb-3">
                     <label for="description">
                         <strong>Описание:</strong>
                     </label>
-                    <textarea id="description" name="description" class="form-control"></textarea>
+                    <textarea id="description" name="description" class="form-control @error('') is-invalid @enderror">{{ old('description') }}</textarea>
                 </div>
             </div>
         </div>

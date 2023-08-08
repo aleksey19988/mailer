@@ -7,7 +7,7 @@
                 <h2>{{ $department->name }}</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('departments.index') }}">Вернуться</a>
+                <a class="btn btn-primary" href="{{ route('departments.index') }}">Все отделы</a>
                 <a class="btn btn-primary" href="{{ route('departments.edit', $department) }}">Редактировать</a>
             </div>
         </div>

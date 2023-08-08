@@ -27,30 +27,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $errors = [];
         $departments = Department::all();
-        if (!$departments->all()) {
-            $errors['departments'] = [
-                'route' => 'departments.create',
-                'message' => 'Ни один отдел не создан',
-            ];
-        }
         $positions = Position::all();
-        if (!$positions->all()) {
-            $errors['positions'] = [
-                'route' => 'positions.create',
-                'message' => 'Ни одна должность не добавлена',
-            ];
-        }
         $branches = Branch::all();
-        if (!$branches->all()) {
-            $errors['branches'] = [
-                'route' => 'branches.create',
-                'message' => 'Ни один филиал не заполнен',
-            ];
-        }
 
-        return view('employees.create', compact('departments', 'positions', 'branches', 'errors'));
+        return view('employees.create', compact('departments', 'positions', 'branches'));
     }
 
     /**
@@ -119,9 +100,8 @@ class EmployeeController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        $employee = Employee::query()->findOrFail($id);
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
@@ -130,7 +110,7 @@ class EmployeeController extends Controller
         if ($birthday) {
             $formData['birthday'] = Carbon::createFromFormat('d.m.Y', $birthday)->toDateTimeString();
         } else {
-            return redirect(route('employees.update', $employee))
+            return redirect(route('employees.edit', compact('employee')))
                 ->withErrors(['Нужно заполнить дату рождения!'])
                 ->withInput();
         }
