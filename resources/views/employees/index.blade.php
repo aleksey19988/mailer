@@ -23,13 +23,19 @@
                 <th>Полное имя</th>
                 <th>Email</th>
                 <th>Дата рождения</th>
+                <th>Филиал</th>
+                <th>Отдел</th>
+                <th>Должность</th>
                 <th>Действия</th>
             </tr>
             @foreach ($employees as $employee)
                 <tr>
-                    <td class="full-name-header">{{ $employee->first_name }} {{ $employee->last_name }} {{ $employee->patronymic }}</td>
-                    <td class="branch-header">{{ $employee->email }}</td>
-                    <td class="branch-header">{{ Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m.Y') }}</td>
+                    <td class="full-name-header">{{ $employee->last_name }} {{ $employee->first_name }} {{ $employee->patronymic }}</td>
+                    <td class="email-header">{{ $employee->email }}</td>
+                    <td class="birthday-header">{{ Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m.Y') }}</td>
+                    <td class="branch-header">{{ $employee->branch->name }}</td>
+                    <td class="department-header">{{ $employee->department->name }}</td>
+                    <td class="position-header">{{ $employee->position->name }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('employees.show', $employee->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('employees.edit', $employee->id) }}">Редактировать</a>

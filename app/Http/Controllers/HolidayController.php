@@ -6,6 +6,7 @@ use App\Models\Holiday;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class HolidayController extends Controller
 {
@@ -35,12 +36,15 @@ class HolidayController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
-        if ($formData['date_of_celebration']) {
+        $formData['name'] = mb_strtolower($formData['name']);
+
+        if ($formData['date_of_celebration'] && strlen($formData['date_of_celebration']) === 5) {
             $formData['date_of_celebration'] = Carbon::createFromFormat('d.m', $formData['date_of_celebration'])->toDateTimeString();
         }
+
         $validator = Validator::make($formData, [
-            'name' => ['required'],
-            'date_of_celebration' => ['string'],
+            'name' => ['required', 'unique:App\Models\Holiday,name'],
+            'date_of_celebration' => Rule::requiredIf(fn () => mb_strtolower($formData['name']) !== 'день рождения'),
         ], $messages);
 
         if ($validator->fails()) {
@@ -79,12 +83,15 @@ class HolidayController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
+        $formData['name'] = mb_strtolower($formData['name']);
+
         if ($formData['date_of_celebration']) {
             $formData['date_of_celebration'] = Carbon::createFromFormat('d.m', $formData['date_of_celebration'])->toDateTimeString();
         }
+
         $validator = Validator::make($formData, [
-            'name' => ['required'],
-            'date_of_celebration' => ['string'],
+            'name' => ['required', 'unique:App\Models\Holiday,name'],
+            'date_of_celebration' => Rule::requiredIf(fn () => mb_strtolower($formData['name']) !== 'день рождения'),
         ], $messages);
 
         if ($validator->fails()) {

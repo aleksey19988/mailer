@@ -10,6 +10,11 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="spinner-container">
+        <div class="spinner-border text-light" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
@@ -19,6 +24,7 @@
     <div class="container pt-3">
         @yield('content')
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

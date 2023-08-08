@@ -30,4 +30,5 @@ Route::resource('departments', DepartmentController::class);
 Route::resource('positions', PositionController::class);
 Route::resource('employees', EmployeeController::class);
 
-Route::get('api/index', [ApiController::class, 'index'])->name('api.index');
+Route::get('api/', [ApiController::class, 'index'])->name('api.index');
+Route::post('api/store', [ApiController::class, 'store'])->name('api.store');

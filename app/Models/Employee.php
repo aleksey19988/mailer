@@ -19,4 +19,17 @@ class Employee extends Model
         'email',
         'birthday',
     ];
+
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'id', 'department_id');
+    }
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+    public function position()
+    {
+        return $this->hasOne(Position::class, 'id', 'position_id');
+    }
 }
