@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use OpenAI;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class ApiController extends Controller
 {
@@ -27,7 +29,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'employee_id' => ['required'],
             'holiday_id' => ['required'],
-            'description' => Rule::requiredIf(function() use ($request) {
+            'description' => Rule::requiredIf(function () use ($request) {
                 $birthdayHoliday = Holiday::query()->where('name', '=', 'день рождения')->get()->all()[0];
                 return (int)$request->holiday_id !== $birthdayHoliday->id;
             }),
@@ -52,11 +54,50 @@ class ApiController extends Controller
                 ],
             ],
         ]);
+        $congratulationMessage = $response['choices'][0]['message']['content'];
 
-        $result = $response['choices'][0]['message']['content'];
-        return json_encode([
-            'status' => 'success',
-            'result' => $result,
-        ]);
+        $mail = new PHPMailer(true);     // Passing `true` enables exceptions
+
+        try {
+
+            // Email server settings
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = env('MAIL_USERNAME');
+            $mail->Password = env('MAIL_PASSWORD');
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+            $mail->CharSet = PhpMailer::CHARSET_UTF8;
+
+            $mail->setFrom('sender@example.com', 'Neovox AI');
+            $mail->addAddress($employee->email);
+            $mail->isHTML(true); // Set email content format to HTML
+
+            $mail->Subject = 'С днём рождения, ' . $employee->first_name . '!';
+            $mail->Body = view('api.mail.body', compact('congratulationMessage', 'employee'))->render();
+
+            $mail->AltBody = '';
+
+            if (!$mail->send()) {
+                return json_encode([
+                    'status' => 'error',
+                    'result' => $mail->ErrorInfo,
+                ]);
+            } else {
+                return json_encode([
+                    'status' => 'success',
+                    'congratulationMessage' => $congratulationMessage,
+                    'email' => $employee->email,
+                ]);
+            }
+
+
+        } catch (Exception $e) {
+            return back()->with('error', 'Message could not be sent.');
+        }
+
+
     }
 }

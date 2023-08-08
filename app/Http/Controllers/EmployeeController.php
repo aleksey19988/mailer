@@ -88,6 +88,7 @@ class EmployeeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        Employee::query()->create($validator->validated());
         return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно сохранены');
     }
 

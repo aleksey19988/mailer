@@ -10,6 +10,7 @@
     height: 100%;
     background-color: rgba(0,0,0, .5);
 }
-.congratulation-alert {
+.congratulation-success-alert,
+.congratulation-error-alert {
     display: none;
 }
