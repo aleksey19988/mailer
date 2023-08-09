@@ -45,16 +45,19 @@ $("#send-email-form").on("submit", function(event){
         },
         error: function (data) {
             $('.spinner-container').css('display', 'none');
-            console.log(data);
             let jsonData = JSON.parse(data);
+            let requestLogged = jsonData.requestLogged ? 'Да' : 'Нет';
+            let emailLogged = jsonData.emailLogged ? 'Да' : 'Нет';
 
-            $('.congratulation-error-content').html(`Ошибочка: ${jsonData.result}`);
+            $('.congratulation-error-content').html(`<p>Ошибочка: ${jsonData.result}</p><p>Удалось ли залогировать запрос к chatGPT: ${requestLogged}</p><p>Удалось ли залогировать сформированное письмо: ${emailLogged}</p>`);
             $('.congratulation-error-alert').show();
         },
         success: function(data){
             let jsonData = JSON.parse(data);
+            let requestLogged = jsonData.requestLogged ? 'Да' : 'Нет';
+            let emailLogged = jsonData.emailLogged ? 'Да' : 'Нет';
 
-            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${jsonData.email}</p><p style="white-space: pre-line"><strong>Поздравление:</strong><br>${jsonData.congratulationMessage}</p>`);
+            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${jsonData.email}</p><p style="white-space: pre-line"><strong>Поздравление:</strong><br>${jsonData.congratulationMessage}</p><p><strong>Удалось ли залогировать запрос к chatGPT: </strong>${requestLogged}</p><p><strong>Удалось ли залогировать сформированное письмо: </strong>${emailLogged}</p>`);
             $('.congratulation-success-alert').show();
         }
     });

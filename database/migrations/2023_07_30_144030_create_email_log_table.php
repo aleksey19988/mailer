@@ -18,10 +18,10 @@ return new class extends Migration
 
             $table->id();
             $table->foreignId('holiday_id')->comment('ID праздника')->constrained()->onDelete('cascade');
-            $table->jsonb('addressee_letter_email_ids')->comment('Список id email-ов получателей письма');
-            $table->jsonb('addressee_copy_email_ids')->comment('Список id email-ов получателей копии письма');
+            $table->string('addressee_letter_email')->comment('Email получателя письма');
+            $table->string('addressee_copy_email')->nullable()->comment('Email получателя копии письма');
             $table->string('letter_subject')->comment('Тема письма');
-            $table->string('letter_body')->comment('Тело письма');
+            $table->string('letter_body', 3000)->comment('Тело письма');
             $table->boolean('is_send_success');
             $table->timestamp('created_at')->comment('Дата отправки');
         });

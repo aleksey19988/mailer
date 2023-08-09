@@ -10,7 +10,7 @@ class Position extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email'];
+    protected $fillable = ['name', 'description'];
 
     public function employees(): HasMany
     {

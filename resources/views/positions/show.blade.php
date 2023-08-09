@@ -25,6 +25,10 @@
             <td>{{ $position->name }}</td>
         </tr>
         <tr>
+            <th scope="row">Описание должности</th>
+            <td>{{ $position->description }}</td>
+        </tr>
+        <tr>
             <th scope="row">Дата создания записи</th>
             <td>{{ $position->created_at }}</td>
         </tr>
