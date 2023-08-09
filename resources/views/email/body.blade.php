@@ -30,6 +30,13 @@ $heartsEmoji = [
             font-family: 'Comfortaa', sans-serif;
         }
 
+        table {
+            margin: 0 auto;
+            background-color: #151F6D;
+            background-size: cover;
+            border-radius: 45px;
+        }
+
         td {
             padding: 0 30px;
         }
@@ -74,7 +81,7 @@ $heartsEmoji = [
     </style>
 </head>
 <body>
-<table style="margin:0 auto;background-color:#151F6D;background-size:cover;border-radius:45px;">
+<table>
     <tr>
         <td>
             <h2 class="greeting-header" style="">С днём
@@ -83,7 +90,7 @@ $heartsEmoji = [
     </tr>
     <tr>
         <td>
-            <p class="congratulationMessage" style="">{{ $congratulationMessage }}</p>
+            <p class="congratulationMessage" style=""><?= nl2br($congratulationMessage) ?></p>
         </td>
     </tr>
 </table>

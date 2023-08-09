@@ -54,7 +54,7 @@ $("#send-email-form").on("submit", function(event){
         success: function(data){
             let jsonData = JSON.parse(data);
 
-            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${jsonData.email}</p><p><strong>Поздравление:</strong> ${jsonData.congratulationMessage}</p>`);
+            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${jsonData.email}</p><p style="white-space: pre-line"><strong>Поздравление:</strong><br>${jsonData.congratulationMessage}</p>`);
             $('.congratulation-success-alert').show();
         }
     });

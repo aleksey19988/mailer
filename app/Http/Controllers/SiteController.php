@@ -2,29 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class SiteController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-//        $result = OpenAI::chat()->create(
-//            [
-//                'model' => 'gpt-3.5-turbo',
-//                'messages' => [
-//                    [
-//                        'role' => 'user',
-//                        'content' => 'Напиши вариант оригинального поздравления с днём рождения, состоящий из 5 предложений на русском языке. При формировании поздравления учти следующие данные: поздравление происходит от лица компании, в которой работает именинник. Это парень, его зовут Алексей, а компания называется Neovox. Также не забудь добавить в поздравление 2-3 эмодзи'
-//                    ],
-//                ],
-//            ]
-//        );
-//
-//        echo $result['choices'][0]['message']['content'];
+        $employees = Employee::all();
+        $birthdayMen = $this->getBirthdayMen($employees);
 
-        return view('welcome');
+        return view('welcome', compact('birthdayMen'));
+    }
+
+    private function getBirthdayMen($employees)
+    {
+        $result = [];
+        $currentDate = Carbon::today()->format('d.m');
+
+        foreach($employees as $employee) {
+            $employeeBirthday = Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m');
+
+            if ($currentDate == $employeeBirthday) {
+                $result[] = $employee;
+            }
+        }
+
+        return $result;
     }
 }
