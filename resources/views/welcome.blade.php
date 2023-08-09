@@ -14,7 +14,8 @@
 
         <div class="col-3">
             <div class="list-group">
-                <a href="{{ route('api.index') }}" class="list-group-item list-group-item-action">Ручная отправка писем</a>
+                <a href="{{ route('api.index') }}" class="list-group-item list-group-item-action">Тестирование API ChatGPT</a>
+                <a href="{{ route('email.index') }}" class="list-group-item list-group-item-action">Ручная отправка писем</a>
             </div>
         </div>
     </div>

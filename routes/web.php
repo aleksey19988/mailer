@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\PositionController;
@@ -32,3 +33,6 @@ Route::resource('employees', EmployeeController::class);
 
 Route::get('api/', [ApiController::class, 'index'])->name('api.index');
 Route::post('api/store', [ApiController::class, 'store'])->name('api.store');
+
+Route::get('email/', array(EmailController::class, 'index'))->name('email.index');
+Route::post('email/store', array(EmailController::class, 'store'))->name('email.store');

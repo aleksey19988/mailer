@@ -31,35 +31,10 @@
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="form-group mb-3">
-                    <label for="employee_id">
-                        <strong>Кого поздравляем?</strong>
+                    <label for="question">
+                        <strong>Напишите свой вопрос:</strong>
                     </label>
-                    <select class="form-select" name="employee_id" id="employee_id">
-                        @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}">{{ $employee->last_name }} {{ $employee->first_name }} {{ $employee->patronymic }} ({{ $employee->department->name }})</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="holiday_id">
-                        <strong>Какой праздник?</strong>
-                    </label>
-                    @if($holidays->all())
-                    <select class="form-select" name="holiday_id" id="holiday_id">
-                        @foreach($holidays->all() as $holiday)
-                            <option value="{{ $holiday->id }}">{{ $holiday->name }}</option>
-                        @endforeach
-                    </select>
-                    @else
-                        <p class="text-danger">Ни один праздник не добавлен</p>
-                        <a class="btn btn-primary" href="{{ route('holidays.create') }}">Добавить праздник</a>
-                    @endif
-                </div>
-                <div class="form-group mb-3">
-                    <label for="description">
-                        <strong>Описание, которое поможет более точно сгенерировать поздравление:</strong>
-                    </label>
-                    <textarea class="form-control" name="description" id="description" placeholder=""></textarea>
+                    <textarea class="form-control" name="question" id="question" placeholder=""></textarea>
                 </div>
             </div>
         </div>
