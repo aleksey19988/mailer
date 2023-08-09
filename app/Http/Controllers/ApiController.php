@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
-use App\Models\Holiday;
+use App\Models\RequestToApiLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use OpenAI;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\PHPMailer;
 
 class ApiController extends Controller
 {
@@ -34,7 +31,7 @@ class ApiController extends Controller
         }
 
         $client = OpenAI::client(env('API_KEY'));
-        $response = $client->chat()->create([
+        $requestData = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
                 [
@@ -42,10 +39,13 @@ class ApiController extends Controller
                     'content' => $request->question,
                 ],
             ],
-        ]);
+        ];
+        $responseData = $client->chat()->create($requestData);
 
-        if ($response['choices'][0]['message']['content']) {
-            $responseMessage = $response['choices'][0]['message']['content'];
+        if ($responseData['choices'][0]['message']['content']) {
+            $this->saveRequestToLog($requestData, $responseData);
+
+            $responseMessage = $responseData['choices'][0]['message']['content'];
             return json_encode([
                 'status' => 'success',
                 'requestMessage' => $request->question,
@@ -57,5 +57,17 @@ class ApiController extends Controller
                 'result' => 'Запрос к ChatGPT был отправлен, но возникла ошибка при получении ответа',
             ]);
         }
+    }
+
+    private function saveRequestToLog($request, $response): void
+    {
+        RequestToApiLog::query()->create([
+            'created_at' => Carbon::createFromTimestamp($response['created']),
+            'request_data' => json_encode($request),
+            'response_data' => json_encode($response),
+            'prompt_tokens' => $response['usage']['prompt_tokens'],
+            'completion_tokens' => $response['usage']['completion_tokens'],
+            'total_tokens' => $response['usage']['total_tokens'],
+        ]);
     }
 }

@@ -7,8 +7,6 @@ use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\RequestToApiLog;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -76,7 +74,6 @@ class EmailController extends Controller
                 [
                     'role' => 'user',
                     'content' => 'Напиши вариант поздравления на русском языке. Праздник: ' . $this->holiday->name . '. Именинника зовут: ' . $this->employee->first_name . '. Учти, что поздравление должно быть от лица компании Neovox в адрес своего сотрудника, а также учти дополнительные сведения: "' . $request->description . '". Не забудь добавить пару эмодзи во всё поздравление.'
-//                    'content' => 'Напиши привет',
                 ],
             ],
         ];
