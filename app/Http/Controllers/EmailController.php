@@ -68,6 +68,7 @@ class EmailController extends Controller
 
         $this->employee = Employee::query()->findOrFail($request->employee_id);
         $this->holiday = Holiday::query()->findOrFail($request->holiday_id);
+
         $requestData = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
@@ -78,11 +79,8 @@ class EmailController extends Controller
             ],
         ];
 
-        $client = OpenAI::client(env('API_KEY'));
-        $responseData = $client->chat()->create($requestData);
+        $responseData = ApiController::sendRequest($requestData);
         $this->congratulationMessage = $responseData['choices'][0]['message']['content'];
-//        return view('email.body', compact('congratulationMessage', 'employee', ));
-
         $this->requestLogged = $this->saveRequestToLog($requestData, $responseData);
 
         $mail = new PHPMailer(true);     // Passing `true` enables exceptions

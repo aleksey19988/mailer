@@ -30,7 +30,6 @@ class ApiController extends Controller
                 ->withInput();
         }
 
-        $client = OpenAI::client(env('API_KEY'));
         $requestData = [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
@@ -40,7 +39,7 @@ class ApiController extends Controller
                 ],
             ],
         ];
-        $responseData = $client->chat()->create($requestData);
+        $responseData = self::sendRequest($requestData);
 
         if ($responseData['choices'][0]['message']['content']) {
             $this->saveRequestToLog($requestData, $responseData);
@@ -69,5 +68,10 @@ class ApiController extends Controller
             'completion_tokens' => $response['usage']['completion_tokens'],
             'total_tokens' => $response['usage']['total_tokens'],
         ]);
+    }
+
+    public static function sendRequest($requestData): OpenAI\Responses\Chat\CreateResponse
+    {
+        return OpenAI::client(env('API_KEY'))->chat()->create($requestData);
     }
 }
