@@ -13,8 +13,8 @@ class EmailLog extends Model
     protected $table = 'email_log';
     public $timestamps = false;
 
-    public function holidays()
+    public function holiday()
     {
-        return $this->hasMany(Holiday::class);
+        return $this->hasOne(Holiday::class, 'id', 'holiday_id');
     }
 }

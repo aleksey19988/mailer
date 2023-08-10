@@ -5,9 +5,11 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EmailLogController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\RequestToApiLogController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,11 @@ Route::resource('holidays', HolidayController::class);
 Route::resource('departments', DepartmentController::class);
 Route::resource('positions', PositionController::class);
 Route::resource('employees', EmployeeController::class);
+
+Route::get('request-to-api-log/', [RequestToApiLogController::class, 'index'])->name('request-to-api-log.index');
+
+Route::get('email-log/', [EmailLogController::class, 'index'])->name('email-log.index');
+Route::get('email-log/{id}/show', [EmailLogController::class, 'show'])->name('email-log.show');
 
 Route::get('api/', [ApiController::class, 'index'])->name('api.index');
 Route::post('api/store', [ApiController::class, 'store'])->name('api.store');

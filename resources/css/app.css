@@ -1,6 +1,7 @@
 .delete-item-form {
     display: inline-block
 }
+
 .spinner-container {
     position: absolute;
     display: none;
@@ -8,9 +9,16 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0, .5);
+    background-color: rgba(0, 0, 0, .5);
 }
+
 .congratulation-success-alert,
 .congratulation-error-alert {
     display: none;
+}
+
+.letter-body {
+    padding: 15px;
+    border-top: 1px solid #95959585;
+    border-bottom: 1px solid #95959585;
 }

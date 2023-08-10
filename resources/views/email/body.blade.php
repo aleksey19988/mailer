@@ -26,15 +26,12 @@ $heartsEmoji = [
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
 
-        * {
-            font-family: 'Comfortaa', sans-serif;
-        }
-
-        table {
+        .letter-table {
             margin: 0 auto;
             background-color: #151F6D;
             background-size: cover;
             border-radius: 45px;
+            font-family: 'Comfortaa', sans-serif;
         }
 
         td {
@@ -45,6 +42,7 @@ $heartsEmoji = [
             color: #E04E39;
             font-weight: bold;
             font-size: 30px;
+            margin-top: 25px;
         }
 
         .congratulationMessage {
@@ -60,7 +58,7 @@ $heartsEmoji = [
         }
 
         @media (min-width: 992px) {
-            table {
+            .letter-table {
                 width: 70vw;
             }
 
@@ -81,7 +79,7 @@ $heartsEmoji = [
     </style>
 </head>
 <body>
-<table>
+<table class="letter-table">
     <tr>
         <td>
             <h2 class="greeting-header" style="">С днём
