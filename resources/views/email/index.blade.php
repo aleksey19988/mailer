@@ -5,9 +5,6 @@
             <div class="pull-left">
                 <h2>Ручная отправка писем</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary col-12 col-sm-12 col-lg-6 col-xl-4" href="{{ route('site.index') }}">На главную</a>
-            </div>
         </div>
     </div>
     <div class="alert alert-success congratulation-success-alert">

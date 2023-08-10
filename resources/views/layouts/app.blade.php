@@ -15,13 +15,18 @@
             <span class="sr-only"></span>
         </div>
     </div>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
-            <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
-        </div>
-    </nav>
     <div class="container pt-3">
+        <nav class="navbar navbar-dark p-3 mb-3">
+            <div class="container">
+                <div>
+                    <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
+                    @if(\Illuminate\Support\Facades\Route::currentRouteName() !== 'site.index')
+                        <a type="button" class="btn btn-outline-light return-to-home-page-link" href="{{ route('site.index') }}">На главную</a>
+                    @endif
+                </div>
+                <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
+            </div>
+        </nav>
         @yield('content')
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -5,9 +5,6 @@
             <div class="pull-left mb-3">
                 <h2>Логи отправки писем</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('site.index') }}">На главную</a>
-            </div>
         </div>
     </div>
 

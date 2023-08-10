@@ -7,7 +7,6 @@
                 <h2>Просмотр email-лога</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('site.index') }}">На главную</a>
                 <a class="btn btn-primary" href="{{ route('email-log.index') }}">Все email-логи</a>
             </div>
         </div>

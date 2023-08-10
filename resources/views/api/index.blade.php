@@ -5,9 +5,6 @@
             <div class="pull-left">
                 <h2>Тестирование запросов к ChatGPT</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('site.index') }}">Вернуться</a>
-            </div>
         </div>
     </div>
     <div class="alert alert-success congratulation-success-alert">

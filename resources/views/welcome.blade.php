@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
-        <div class="col-3">
+    <div class="welcome-section row p-3">
+        <div class="mb-2 col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <h3>Справочники</h3>
             <div class="list-group">
                 <a href="{{ route('cities.index') }}" class="list-group-item list-group-item-action">Города</a>
@@ -12,7 +12,7 @@
                 <a href="{{ route('branches.index') }}" class="list-group-item list-group-item-action">Филиалы</a>
             </div>
         </div>
-        <div class="col-3">
+        <div class="mb-2 col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <h3>Отправка</h3>
             <div class="list-group">
                 <a href="{{ route('api.index') }}" class="list-group-item list-group-item-action">Тестирование API
@@ -21,7 +21,7 @@
                     писем</a>
             </div>
         </div>
-        <div class="col-3">
+        <div class="mb-2 col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <h3>Логи</h3>
             <div class="list-group">
                 <a href="{{ route('request-to-api-log.index') }}" class="list-group-item list-group-item-action">Запросы
@@ -31,10 +31,8 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="welcome-section row p-3 mt-5">
         <h2>Сегодня {{ \Carbon\Carbon::today()->format('d.m.Y') }}</h2>
-    </div>
-    <div class="row">
         @if($birthdayEmployees)
             <h4>Именинники:</h4>
             <table class="table">
