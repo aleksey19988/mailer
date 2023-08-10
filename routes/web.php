@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmailLogController;
@@ -34,6 +35,8 @@ Route::resource('positions', PositionController::class);
 Route::resource('employees', EmployeeController::class);
 
 Route::get('request-to-api-log/', [RequestToApiLogController::class, 'index'])->name('request-to-api-log.index');
+
+Route::get('cron/check-birthday', [CronController::class, 'checkBirthday'])->name('cron.check-birthday');
 
 Route::get('email-log/', [EmailLogController::class, 'index'])->name('email-log.index');
 Route::get('email-log/{id}/show', [EmailLogController::class, 'show'])->name('email-log.show');

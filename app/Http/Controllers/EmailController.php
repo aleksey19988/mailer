@@ -142,7 +142,7 @@ class EmailController extends Controller
         }
     }
 
-    private function saveRequestToLog($request, $response): bool
+    public function saveRequestToLog($request, $response): bool
     {
         return RequestToApiLog::query()->create([
             'created_at' => Carbon::createFromTimestamp($response['created']),
@@ -154,14 +154,14 @@ class EmailController extends Controller
         ])->save();
     }
 
-    private function saveEmailLog($isSuccess): bool
+    public function saveEmailLog(bool $isSuccess, Holiday $holiday = null, Employee $employee = null, string $letterSubject = null, string $congratulationMessage = null,): bool
     {
         return EmailLog::query()->create([
-            'holiday_id' => $this->holiday->id,
-            'addressee_letter_email' => $this->employee->email,
+            'holiday_id' => $holiday->id ?? $this->holiday->id,
+            'addressee_letter_email' => $employee->email ?? $this->employee->email,
             'addressee_copy_email' => null,
-            'letter_subject' => $this->letterSubject,
-            'letter_body' => $this->congratulationMessage,
+            'letter_subject' => $letterSubject ?? $this->letterSubject,
+            'letter_body' => $congratulationMessage ?? $this->congratulationMessage,
             'created_at' => Carbon::now(),
             'is_send_success' => $isSuccess,
         ])->save();

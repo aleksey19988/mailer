@@ -15,15 +15,19 @@
         <div class="col-3">
             <h3>Отправка</h3>
             <div class="list-group">
-                <a href="{{ route('api.index') }}" class="list-group-item list-group-item-action">Тестирование API ChatGPT</a>
-                <a href="{{ route('email.index') }}" class="list-group-item list-group-item-action">Ручная отправка писем</a>
+                <a href="{{ route('api.index') }}" class="list-group-item list-group-item-action">Тестирование API
+                    ChatGPT</a>
+                <a href="{{ route('email.index') }}" class="list-group-item list-group-item-action">Ручная отправка
+                    писем</a>
             </div>
         </div>
         <div class="col-3">
             <h3>Логи</h3>
             <div class="list-group">
-                <a href="{{ route('request-to-api-log.index') }}" class="list-group-item list-group-item-action">Запросы к API</a>
-                <a href="{{ route('email-log.index') }}" class="list-group-item list-group-item-action">Отправка писем</a>
+                <a href="{{ route('request-to-api-log.index') }}" class="list-group-item list-group-item-action">Запросы
+                    к API</a>
+                <a href="{{ route('email-log.index') }}" class="list-group-item list-group-item-action">Отправка
+                    писем</a>
             </div>
         </div>
     </div>
@@ -31,7 +35,7 @@
         <h2>Сегодня {{ \Carbon\Carbon::today()->format('d.m.Y') }}</h2>
     </div>
     <div class="row">
-        @if($birthdayMen)
+        @if($birthdayEmployees)
             <h4>Именинники:</h4>
             <table class="table">
                 <thead>
@@ -42,11 +46,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($birthdayMen as $man)
+                @foreach($birthdayEmployees as $employee)
                     <tr>
-                        <td>{{ $man->last_name }} {{ $man->first_name }} {{ $man->patronymic }}</td>
-                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $man->birthday)->format('d.m.Y') }}</td>
-                        <td>Otto</td>
+                        <td>{{ $employee->last_name }} {{ $employee->first_name }} {{ $employee->patronymic }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m.Y') }}</td>
+                        <td>
+                        <?php
+                            $logByEmail = \App\Models\EmailLog::query()
+                                ->where([['addressee_letter_email', '=', $employee->email]])
+                                ->first();
+                            if ($logByEmail) {
+                                $emailSentToday = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $logByEmail->created_at)->format('d.m.Y') == \Carbon\Carbon::today()->format('d.m.Y');
+                                if ($emailSentToday) {
+                                    echo '<span class="text-success">Да</span>';
+                                } else {
+                                    echo '<span class="text-danger">Нет</span>';
+                                }
+                            } else {
+                                echo '<span class="text-danger">Нет</span>';
+                            }
+                        ?>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

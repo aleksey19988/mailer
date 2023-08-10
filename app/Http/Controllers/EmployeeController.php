@@ -18,7 +18,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::all()->sortBy('last_name');
         return view('employees.index', compact('employees'));
     }
 
@@ -141,6 +141,23 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
         Employee::query()->find($id)->delete();
-        return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно отредактированы');
+        return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно удалены');
+    }
+
+    public static function getBirthdayEmployees()
+    {
+        $employees = Employee::all();
+        $result = [];
+        $currentDate = Carbon::today()->format('d.m');
+
+        foreach($employees as $employee) {
+            $employeeBirthday = Carbon::createFromFormat('Y-m-d H:i:s', $employee->birthday)->format('d.m');
+
+            if ($currentDate == $employeeBirthday) {
+                $result[] = $employee;
+            }
+        }
+
+        return $result;
     }
 }

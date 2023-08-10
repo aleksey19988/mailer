@@ -12,6 +12,10 @@
             </div>
         </div>
     </div>
+    <div class="letter-addressee-container mb-3">
+        <strong>ФИО получателя:</strong><br>
+        {{ $addressee_full_name }}
+    </div>
     <div class="letter-subject-container mb-3">
         <strong>Тема письма:</strong><br>
         {{ $log->letter_subject }}
