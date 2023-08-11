@@ -11,9 +11,15 @@
     color: white;
 }
 
-.return-to-home-page-link {
-    text-decoration: none;
-    color: white;
+.auth-form-container {
+    height: 80vh;
+}
+
+.auth-form {
+    border: 1px solid rgba(222, 226, 230, 0.46);
+    border-radius: 45px;
+    box-shadow: 10px 10px 25px 0px rgba(34, 60, 80, 0.15);
+    width: 70vw;
 }
 
 .return-to-home-page-link:hover {
@@ -30,11 +36,13 @@
 .list-group a,
 .btn,
 .welcome-section,
-.return-to-home-page-link {
+.return-to-home-page-link,
+.auth-form {
     transition: all .3s ease;
 }
 
-.welcome-section:hover {
+.welcome-section:hover,
+.auth-form:hover {
     box-shadow: 20px 20px 35px 0px rgba(34, 60, 80, 0.15);
 }
 
