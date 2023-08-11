@@ -98,6 +98,6 @@ class PositionController extends Controller
     public function destroy(string $id)
     {
         Position::query()->findOrFail($id)->delete();
-        return redirect(route('positions.index'))->with('success', 'Должность успешно добавлена!');
+        return redirect(route('positions.index'))->with('success', 'Должность успешно удалена!');
     }
 }

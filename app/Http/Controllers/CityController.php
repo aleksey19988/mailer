@@ -85,11 +85,9 @@ class CityController extends Controller
                 ->withInput();
         }
 
-        $oldCityName = $city->name;
         $city->update($validator->validated());
-        $newCityName = $city->name;
 
-        return redirect()->route('cities.index')->with('success', "Имя города успешно обновлено с '${oldCityName}' на '${newCityName}'");
+        return redirect()->route('cities.index')->with('success', "Город успешно обновлён");
     }
 
     /**
@@ -98,6 +96,6 @@ class CityController extends Controller
     public function destroy(string $id)
     {
         City::query()->find($id)->delete();
-        return redirect()->route('cities.index')->with('success', 'Город удалён');
+        return redirect()->route('cities.index')->with('success', 'Город успешно удалён');
     }
 }

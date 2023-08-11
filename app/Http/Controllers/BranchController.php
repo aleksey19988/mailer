@@ -106,6 +106,6 @@ class BranchController extends Controller
     public function destroy(string $id)
     {
         Branch::query()->find($id)->delete();
-        return redirect()->route('branches.index')->with('success', 'Филиал удален');
+        return redirect()->route('branches.index')->with('success', 'Филиал успешно удален');
     }
 }
