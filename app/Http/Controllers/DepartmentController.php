@@ -39,7 +39,7 @@ class DepartmentController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['nullable', 'email'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -80,7 +80,7 @@ class DepartmentController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['nullable', 'email'],
         ], $messages);
 
         if ($validator->fails()) {

@@ -38,7 +38,7 @@ class PositionController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'description' => ['string', 'max:1000'],
+            'description' => ['nullable', 'string', 'max:1000'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -79,7 +79,7 @@ class PositionController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'description' => ['string', 'max:1000'],
+            'description' => ['nullable', 'string', 'max:1000'],
         ], $messages);
 
         if ($validator->fails()) {

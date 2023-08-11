@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->id();
             $table->string('name')->comment('Наименование отдела');
-            $table->string('email')->comment('Электронная почта отдела');
+            $table->string('email')->nullable()->comment('Электронная почта отдела');
             $table->timestamps();
 
             $table->softDeletes();

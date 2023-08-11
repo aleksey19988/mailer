@@ -48,7 +48,7 @@
     </table>
     <div class="employees-container mt-5">
         <h2>Список сотрудников:</h2>
-        @if($branch->employees->all())
+        @if($branch->employees && $branch->employees->all())
             <table class="table table-striped">
                 <thead>
                 <tr>

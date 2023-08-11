@@ -44,7 +44,10 @@ class HolidayController extends Controller
 
         $validator = Validator::make($formData, [
             'name' => ['required', 'unique:App\Models\Holiday,name'],
-            'date_of_celebration' => Rule::requiredIf(fn () => mb_strtolower($formData['name']) !== 'день рождения'),
+            'date_of_celebration' => [
+                Rule::requiredIf(fn () => mb_strtolower($formData['name']) !== 'день рождения'),
+                'date_format:d.m'
+            ],
         ], $messages);
 
         if ($validator->fails()) {
@@ -90,7 +93,7 @@ class HolidayController extends Controller
         }
 
         $validator = Validator::make($formData, [
-            'name' => ['required', 'unique:App\Models\Holiday,name'],
+            'name' => ['required'],
             'date_of_celebration' => Rule::requiredIf(fn () => mb_strtolower($formData['name']) !== 'день рождения'),
         ], $messages);
 

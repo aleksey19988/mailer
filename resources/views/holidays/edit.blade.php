@@ -49,7 +49,7 @@
                         <strong>Дата празднования:</strong>
                     </label>
                     <input id="date_of_celebration" type="text" name="date_of_celebration"
-                           value="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $holiday->date_of_celebration)->format('d.m') }}"
+                           value="{{ $holiday->date_of_celebration ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $holiday->date_of_celebration)->format('d.m') : null }}"
                            class="form-control @error('name') is-invalid @enderror"
                            placeholder="{{ \Carbon\Carbon::now()->format('d.m') }}">
                     <small class="text-secondary">Не обязательно для дня рождения</small>

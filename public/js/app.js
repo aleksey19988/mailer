@@ -1,5 +1,3 @@
-import './bootstrap';
-import '../css/app.css';
 $("#api-request-form").on("submit", function(event){
     event.preventDefault();
 

@@ -20,11 +20,13 @@
         <table class="table table-striped">
             <tr>
                 <th>Наименование должности</th>
+                <th>Описание должности</th>
                 <th>Действия</th>
             </tr>
             @foreach ($positions as $position)
                 <tr>
                     <td>{{ $position->name }}</td>
+                    <td>{{ $position->description ?? 'Не указано' }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ route('positions.show', $position->id) }}">Просмотр</a>
                         <a class="btn btn-primary" href="{{ route('positions.edit', $position->id) }}">Редактировать</a>

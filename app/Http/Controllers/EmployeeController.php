@@ -43,17 +43,7 @@ class EmployeeController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
 
-        $formData = $request->all();
-        $birthday = $formData['birthday'];
-        if ($birthday) {
-            $formData['birthday'] = Carbon::createFromFormat('d.m.Y', $birthday)->toDateTimeString();
-        } else {
-            return redirect(route('employees.create'))
-                ->withErrors(['Нужно заполнить дату рождения!'])
-                ->withInput();
-        }
-
-        $validator = Validator::make($formData, [
+        $validator = Validator::make($request->all(), [
             'first_name' => ['required'],
             'last_name' => ['required'],
             'patronymic' => ['max:30'],
@@ -61,7 +51,7 @@ class EmployeeController extends Controller
             'position_id' => ['required'],
             'branch_id' => ['required'],
             'email' => ['required'],
-            'birthday' => ['required'],
+            'birthday' => ['required', 'date_format:d.m.Y'],
         ], $messages);
 
         if ($validator->fails()) {
@@ -69,7 +59,10 @@ class EmployeeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        $validator->setValue('birthday', Carbon::createFromFormat('d.m.Y', $validator->validated()['birthday'])->toDateTimeString());
         Employee::query()->create($validator->validated());
+
         return redirect()->route('employees.index')->with('success', 'Данные о сотруднике успешно сохранены');
     }
 
@@ -105,16 +98,7 @@ class EmployeeController extends Controller
         $messages = [
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
-        $formData = $request->all();
-        $birthday = $formData['birthday'];
-        if ($birthday) {
-            $formData['birthday'] = Carbon::createFromFormat('d.m.Y', $birthday)->toDateTimeString();
-        } else {
-            return redirect(route('employees.edit', compact('employee')))
-                ->withErrors(['Нужно заполнить дату рождения!'])
-                ->withInput();
-        }
-        $validator = Validator::make($formData, [
+        $validator = Validator::make($request->all(), [
             'first_name' => ['required'],
             'last_name' => ['required'],
             'patronymic' => ['max:30'],
@@ -122,16 +106,18 @@ class EmployeeController extends Controller
             'position_id' => ['required'],
             'branch_id' => ['required'],
             'email' => ['required'],
-            'birthday' => ['required'],
+            'birthday' => ['required', 'date_format:d.m.Y'],
         ], $messages);
 
         if ($validator->fails()) {
-            return redirect(route('employees.update', $employee))
+            return redirect(route('employees.edit', $employee))
                 ->withErrors($validator)
                 ->withInput();
         }
 
+        $validator->setValue('birthday', Carbon::createFromFormat('d.m.Y', $validator->validated()['birthday'])->toDateTimeString());
         $employee->update($validator->validated());
+
         return redirect()->route('employees.index')->with('success', "Данные о сотруднике успешно отредактированы");
     }
 

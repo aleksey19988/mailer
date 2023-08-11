@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <th scope="row">Описание должности</th>
-            <td>{{ $position->description }}</td>
+            <td>{{ $position->description ?? 'Не указано' }}</td>
         </tr>
         <tr>
             <th scope="row">Дата создания записи</th>
