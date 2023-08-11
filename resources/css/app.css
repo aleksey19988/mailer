@@ -1,7 +1,6 @@
 .navbar {
     border-radius: 20px;
     background-color: #151F6D;
-    box-shadow: 20px 30px 20px 0px rgba(34, 60, 80, 0.15);
 }
 
 .return-to-home-page-link {
@@ -16,6 +15,7 @@
 .welcome-section {
     border: 1px solid rgba(222, 226, 230, 0.46);
     border-radius: 20px;
+    box-shadow: 10px 10px 25px 0px rgba(34, 60, 80, 0.15);
 }
 
 .list-group a,
@@ -26,7 +26,7 @@
 }
 
 .welcome-section:hover {
-    box-shadow: 10px 10px 25px 0px rgba(34, 60, 80, 0.15);
+    box-shadow: 20px 20px 35px 0px rgba(34, 60, 80, 0.15);
 }
 
 .list-group a:hover {
