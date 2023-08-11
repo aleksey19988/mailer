@@ -37,6 +37,8 @@ class BranchController extends Controller
             'required' => 'Забыли заполнить кое что (:attribute)',
         ];
         $formData = $request->all();
+        $formData['opening_date'] = Carbon::createFromFormat('d.m.Y', $formData['opening_date'])->toDateTimeString();
+
         $validator = Validator::make($formData, [
             'name' => ['required'],
             'city_id' => ['required'],
@@ -49,7 +51,6 @@ class BranchController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $formData['opening_date'] = Carbon::createFromFormat('d.m.Y', $formData['opening_date'])->toDateTimeString();
 
         $branch = Branch::query()->create($validator->validated());
         return redirect()->route('branches.index')->with('success', 'Филиал "' . $branch->name .'" успешно добавлен');
