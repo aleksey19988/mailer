@@ -19,11 +19,8 @@
     <div class="container pt-3">
         <nav class="navbar p-3 mb-3">
             <div class="container">
-                <div class="logo-container">
+                <div class="logo-container row">
                     <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
-                    @if(\Illuminate\Support\Facades\Route::currentRouteName() !== 'site.index')
-                        <a type="button" class="btn btn-outline-light return-to-home-page-link" href="{{ route('site.index') }}">На главную</a>
-                    @endif
                 </div>
                 <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
             </div>
