@@ -19,7 +19,7 @@
     border: 1px solid rgba(222, 226, 230, 0.46);
     border-radius: 45px;
     box-shadow: 10px 10px 25px 0px rgba(34, 60, 80, 0.15);
-    width: 70vw;
+    width: 100%;
 }
 
 .return-to-home-page-link:hover {
