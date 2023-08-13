@@ -1,12 +1,10 @@
-import './bootstrap';
-import '../css/app.css';
 $("#api-request-form").on("submit", function(event){
     event.preventDefault();
 
     $.ajax({
         url: $(this).prop('action'),
         method: 'post',
-        dataType: 'html',
+        dataType: 'json',
         data: $(this).serialize(),
         beforeSend: function () {
             $('.spinner-container').css('display', 'flex');
@@ -16,15 +14,11 @@ $("#api-request-form").on("submit", function(event){
         },
         error: function (data) {
             $('.spinner-container').css('display', 'none');
-            let jsonData = JSON.parse(data);
-
-            $('.congratulation-error-content').html(`Ошибочка: ${jsonData.result}`);
+            $('.congratulation-error-content').html(`Ошибочка: ${data.result}`);
             $('.congratulation-error-alert').show();
         },
         success: function(data){
-            let jsonData = JSON.parse(data);
-
-            $('.congratulation-success-content').html(`<p><strong>Вопрос:</strong> ${jsonData.requestMessage}</p><p><strong>Ответ:</strong> ${jsonData.responseMessage}</p>`);
+            $('.congratulation-success-content').html(`<p><strong>Вопрос:</strong> ${data.requestMessage}</p><p><strong>Ответ:</strong> ${data.responseMessage}</p>`);
             $('.congratulation-success-alert').show();
         }
     });
@@ -35,7 +29,7 @@ $("#send-email-form").on("submit", function(event){
     $.ajax({
         url: $(this).prop('action'),
         method: 'post',
-        dataType: 'html',
+        dataType: 'json',
         data: $(this).serialize(),
         beforeSend: function () {
             $('.spinner-container').css('display', 'flex');
@@ -45,19 +39,17 @@ $("#send-email-form").on("submit", function(event){
         },
         error: function (data) {
             $('.spinner-container').css('display', 'none');
-            let jsonData = JSON.parse(data);
-            let requestLogged = jsonData.requestLogged ? 'Да' : 'Нет';
-            let emailLogged = jsonData.emailLogged ? 'Да' : 'Нет';
+            let requestLogged = data.requestLogged ? 'Да' : 'Нет';
+            let emailLogged = data.emailLogged ? 'Да' : 'Нет';
 
-            $('.congratulation-error-content').html(`<p>Ошибочка: ${jsonData.result}</p><p>Удалось ли залогировать запрос к chatGPT: ${requestLogged}</p><p>Удалось ли залогировать сформированное письмо: ${emailLogged}</p>`);
+            $('.congratulation-error-content').html(`<p>Ошибочка: ${data.result}</p><p>Удалось ли залогировать запрос к chatGPT: ${data}</p><p>Удалось ли залогировать сформированное письмо: ${emailLogged}</p>`);
             $('.congratulation-error-alert').show();
         },
         success: function(data){
-            let jsonData = JSON.parse(data);
-            let requestLogged = jsonData.requestLogged ? 'Да' : 'Нет';
-            let emailLogged = jsonData.emailLogged ? 'Да' : 'Нет';
+            let requestLogged = data.requestLogged ? 'Да' : 'Нет';
+            let emailLogged = data.emailLogged ? 'Да' : 'Нет';
 
-            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${jsonData.email}</p><p style="white-space: pre-line"><strong>Поздравление:</strong><br>${jsonData.congratulationMessage}</p><p><strong>Удалось ли залогировать запрос к chatGPT: </strong>${requestLogged}</p><p><strong>Удалось ли залогировать сформированное письмо: </strong>${emailLogged}</p>`);
+            $('.congratulation-success-content').html(`<p><strong>Почта получателя:</strong> ${data.email}</p><p style="white-space: pre-line"><strong>Поздравление:</strong><br>${data.congratulationMessage}</p><p><strong>Удалось ли залогировать запрос к chatGPT: </strong>${requestLogged}</p><p><strong>Удалось ли залогировать сформированное письмо: </strong>${emailLogged}</p>`);
             $('.congratulation-success-alert').show();
         }
     });

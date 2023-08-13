@@ -40,7 +40,7 @@
         </table>
     @else
         <div class="alert alert-primary" role="alert">
-            В БД нет ни одного запроса
+            В БД нет ни одной отправки
         </div>
     @endif
 @endsection

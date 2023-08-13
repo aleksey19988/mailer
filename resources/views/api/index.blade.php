@@ -7,11 +7,11 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-success congratulation-success-alert">
-        <p class="congratulation-success-content"></p>
+    <div class="alert alert-success api-response-success-alert">
+        <p class="api-response-success-content"></p>
     </div>
-    <div class="alert alert-success congratulation-error-alert">
-        <p class="congratulation-error-content"></p>
+    <div class="alert alert-success api-response-error-alert">
+        <p class="api-response-error-content"></p>
     </div>
     @if ($errors->any())
         <div class="alert alert-danger">

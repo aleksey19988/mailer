@@ -6,7 +6,7 @@
                 <h2>Список праздников</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('holidays.create') }}">Добавить праздник</a>
+                <a class="btn btn-success disabled" href="{{ route('holidays.create') }}">Добавить праздник</a>
             </div>
         </div>
     </div>
@@ -35,11 +35,11 @@
                     </td>
                     <td>
                         <a class="btn btn-info" href="{{ route('holidays.show', $holiday->id) }}">Просмотр</a>
-                        <a class="btn btn-primary" href="{{ route('holidays.edit', $holiday->id) }}">Редактировать</a>
+                        <a class="btn btn-primary disabled" href="{{ route('holidays.edit', $holiday->id) }}">Редактировать</a>
                         <form action="{{ route('holidays.destroy', $holiday->id) }}" method="POST" class="delete-item-form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Удалить</button>
+                            <button type="submit" class="btn btn-danger disabled">Удалить</button>
                         </form>
                     </td>
                 </tr>

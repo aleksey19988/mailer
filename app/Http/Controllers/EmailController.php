@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use OpenAI;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -89,7 +88,7 @@ class EmailController extends Controller
             // Email server settings
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'mail.hosting.reg.ru';
             $mail->SMTPAuth = true;
             $mail->Username = env('MAIL_USERNAME');
             $mail->Password = env('MAIL_PASSWORD');
@@ -97,7 +96,7 @@ class EmailController extends Controller
             $mail->Port = 587;
             $mail->CharSet = PhpMailer::CHARSET_UTF8;
 
-            $mail->setFrom('sender@example.com', 'Neovox AI');
+            $mail->setFrom(env('MAIL_USERNAME'), 'Neovox AI');
             $mail->addAddress($this->employee->email);
             $mail->isHTML(true); // Set email content format to HTML
 
@@ -122,7 +121,6 @@ class EmailController extends Controller
                 ]);
             } else {
                 $this->emailLogged = $this->saveEmailLog(true);
-
                 return json_encode([
                     'status' => 'success',
                     'congratulationMessage' => $this->congratulationMessage,

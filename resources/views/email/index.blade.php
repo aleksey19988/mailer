@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="pull-right">
-            <button type="submit" class="btn btn-success col-12 col-sm-12 col-lg-6 col-xl-4">Отправить запрос</button>
+            <button type="submit" class="btn btn-success col-12 col-sm-12 col-lg-6 col-xl-4">Отправить письмо</button>
         </div>
     </form>
 @endsection

@@ -8,7 +8,7 @@
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('holidays.index') }}">Все праздники</a>
-                <a class="btn btn-primary" href="{{ route('holidays.edit', $holiday) }}">Редактировать</a>
+                <a class="btn btn-primary disabled" href="{{ route('holidays.edit', $holiday) }}">Редактировать</a>
             </div>
         </div>
     </div>
