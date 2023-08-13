@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
     Route::resource('cities', CityController::class);
@@ -48,7 +48,9 @@ Route::middleware('auth')->group(function() {
 
     Route::get('email/', array(EmailController::class, 'index'))->name('email.index');
     Route::post('email/store', array(EmailController::class, 'store'))->name('email.store');
+
+    Route::get('logout', [LoginController::class, 'logout'])->name('login.logout');
 });
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('login', [LoginController::class, 'index'])->name('login.login');
 Route::post('authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');

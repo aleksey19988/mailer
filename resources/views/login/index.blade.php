@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="auth-form-container d-flex justify-content-center align-items-center">
+    <div class="auth-form-container d-flex justify-content-center align-items-center flex-column">
+        <div class="alert alert-primary" role="alert">
+            Автоматизированный сервис генерации и отправки писем с поздравлениями
+        </div>
         <form action="{{ route('login.authenticate') }}" method="post" class="p-5 auth-form">
             @if ($errors->any())
                 <div class="alert alert-danger">

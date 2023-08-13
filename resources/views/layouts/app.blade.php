@@ -22,7 +22,16 @@
                 <div class="logo-container row">
                     <a class="navbar-brand" href="{{ route('site.index') }}">АСГИОПСП</a>
                 </div>
-                <small class="text-light">Автоматизированный сервис генерации и отправки писем с поздравлениями</small>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <small class="text-light">{{ \Illuminate\Support\Facades\Auth::user()->name }}</small>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('login.logout') }}">Выйти</a></li>
+                        </ul>
+                    </div>
+                @endif
             </div>
         </nav>
         @yield('content')
