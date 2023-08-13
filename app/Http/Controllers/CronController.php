@@ -69,7 +69,7 @@ class CronController extends Controller
             // Email server settings
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'mail.hosting.reg.ru';
             $mail->SMTPAuth = true;
             $mail->Username = env('MAIL_USERNAME');
             $mail->Password = env('MAIL_PASSWORD');
@@ -77,7 +77,7 @@ class CronController extends Controller
             $mail->Port = 587;
             $mail->CharSet = PhpMailer::CHARSET_UTF8;
 
-            $mail->setFrom('sender@example.com', 'Neovox AI');
+            $mail->setFrom(env('MAIL_USERNAME'), 'Neovox AI');
             $mail->addAddress($this->birthdayEmployee->email);
             $mail->isHTML(true); // Set email content format to HTML
 

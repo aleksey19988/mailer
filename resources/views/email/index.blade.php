@@ -10,7 +10,7 @@
     <div class="alert alert-success congratulation-success-alert">
         <p class="congratulation-success-content"></p>
     </div>
-    <div class="alert alert-success congratulation-error-alert">
+    <div class="alert alert-danger congratulation-error-alert">
         <p class="congratulation-error-content"></p>
     </div>
     @if ($errors->any())
