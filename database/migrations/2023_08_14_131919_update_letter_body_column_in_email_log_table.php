@@ -45,26 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('email_log', function(Blueprint $table)
-        {
-            $table->renameColumn('letter_body', 'letter_body_old');
-        });
-
-        Schema::table('email_log', function (Blueprint $table) {
-            $table->string('letter_body', 3000)->after('letter_subject')->comment('Тело письма');
-        });
-
-        $emailLogs = \App\Models\EmailLog::all();
-        if ($emailLogs) {
-            foreach($emailLogs as $log) {
-                $log->letter_body = $log->letter_body_old;
-                $log->save();
-            }
-        }
-
-        Schema::table('email_log', function(Blueprint $table)
-        {
-            $table->dropColumn('letter_body_old');
-        });
+        echo 'Невозможно изменить размер поля в меньшую сторону, так как текущие данные могут не поместиться';
     }
 };
