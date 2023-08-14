@@ -27,8 +27,6 @@ class EmailLogController extends Controller
         $employee = \App\Models\Employee::query()->where('email', '=', $log->addressee_letter_email)->first();
         if ($employee) {
             $addressee_full_name = $employee->last_name . ' ' . $employee->first_name . ' ' . $employee->patronymic;
-        } else {
-            echo '<span class="text-danger">ФИО не найдены</span>';
         }
         return view('email-log.show', compact('log', 'addressee_full_name'));
     }
