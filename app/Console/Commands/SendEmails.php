@@ -27,7 +27,7 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Проверка на наличие именинников сегодня и отправка им поздравлений на почту';
 
     /**
      * Execute the console command.
@@ -52,10 +52,10 @@ class SendEmails extends Command
                     echo $this->extracted($employee);
                 }
             }
-            echo 'Все сегодняшние именинники получили свои поздравления';
+            echo 'All recipients received congratulations';
             return true;
         } else {
-            echo 'Именинников сегодня нет';
+            echo 'There are no recipients today';
             return true;
         }
     }
@@ -144,8 +144,8 @@ class SendEmails extends Command
         $this->birthdayEmployee = $employee;
 
         if ($this->sendBirthdayEmail($this->birthdayEmployee)) {
-            return 'Поздравление отправлено по адресу: ' . $this->birthdayEmployee->email . ' на имя: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic;
+            return 'Congratulations have been sent to: ' . $this->birthdayEmployee->email . ' to: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic;
         }
-        return 'При попытке отправить email по адресу: ' . $this->birthdayEmployee->email . ' на имя: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic . ' произошла ошибка';
+        return 'When trying to send an email to: ' . $this->birthdayEmployee->email . ' to: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic . ' an error has occurred';
     }
 }
