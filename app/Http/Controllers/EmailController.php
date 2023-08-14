@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\EmailLog;
 use App\Models\Employee;
 use App\Models\Holiday;
-use App\Models\RequestToApiLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -67,6 +66,7 @@ class EmailController extends Controller
 
         $this->employee = Employee::query()->findOrFail($request->employee_id);
         $this->holiday = Holiday::query()->findOrFail($request->holiday_id);
+        $this->letterSubject = 'С днём рождения, ' . $this->employee->first_name . '!';
 
         $requestData = [
             'model' => 'gpt-3.5-turbo',
@@ -80,46 +80,15 @@ class EmailController extends Controller
 
         $responseData = ApiController::sendRequest($requestData);
         $this->congratulationMessage = $responseData['choices'][0]['message']['content'];
-        $this->requestLogged = $this->saveRequestToLog($requestData, $responseData);
+        $this->requestLogged = RequestToApiLogController::saveRequestToLog($requestData, $responseData);
 
         $mail = new PHPMailer(true);     // Passing `true` enables exceptions
 
         try {
-            // Email server settings
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host = 'mail.hosting.reg.ru';
-            $mail->SMTPAuth = true;
-            $mail->Username = env('MAIL_USERNAME');
-            $mail->Password = env('MAIL_PASSWORD');
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-            $mail->CharSet = PhpMailer::CHARSET_UTF8;
+            $mailer = new MailerController($this->employee, $this->congratulationMessage);
+            $mailIsSend = $mailer->sendEmail($mail);
 
-            $mail->setFrom(env('MAIL_USERNAME'), 'Neovox AI');
-            $mail->addAddress($this->employee->email);
-            $mail->isHTML(true); // Set email content format to HTML
-
-            $this->letterSubject = 'С днём рождения, ' . $this->employee->first_name . '!';
-            $mail->Subject = $this->letterSubject;
-
-            $mail->Body = view('email.body', [
-                'congratulationMessage' => $this->congratulationMessage,
-                'employee' => $this->employee
-            ])->render();
-
-            $mail->AltBody = '';
-
-            if (!$mail->send()) {
-                $this->emailLogged = $this->saveEmailLog(false);
-
-                return json_encode([
-                    'status' => 'error',
-                    'result' => $mail->ErrorInfo,
-                    'requestLogged' => $this->requestLogged,
-                    'emailLogged' => $this->emailLogged,
-                ]);
-            } else {
+            if ($mailIsSend) {
                 $this->emailLogged = $this->saveEmailLog(true);
                 return json_encode([
                     'status' => 'success',
@@ -128,8 +97,16 @@ class EmailController extends Controller
                     'requestLogged' => $this->requestLogged,
                     'emailLogged' => $this->emailLogged,
                 ]);
-            }
+            } else {
+                $this->emailLogged = $this->saveEmailLog(false);
 
+                return json_encode([
+                    'status' => 'error',
+                    'result' => $mail->ErrorInfo,
+                    'requestLogged' => $this->requestLogged,
+                    'emailLogged' => $this->emailLogged,
+                ]);
+            }
         } catch (Exception $e) {
             return json_encode([
                 'status' => 'error',
@@ -138,18 +115,6 @@ class EmailController extends Controller
                 'emailLogged' => $this->emailLogged,
             ]);
         }
-    }
-
-    public function saveRequestToLog($request, $response): bool
-    {
-        return RequestToApiLog::query()->create([
-            'created_at' => Carbon::createFromTimestamp($response['created']),
-            'request_data' => json_encode($request),
-            'response_data' => json_encode($response),
-            'prompt_tokens' => $response['usage']['prompt_tokens'],
-            'completion_tokens' => $response['usage']['completion_tokens'],
-            'total_tokens' => $response['usage']['total_tokens'],
-        ])->save();
     }
 
     public function saveEmailLog(bool $isSuccess, Holiday $holiday = null, Employee $employee = null, string $letterSubject = null, string $congratulationMessage = null,): bool

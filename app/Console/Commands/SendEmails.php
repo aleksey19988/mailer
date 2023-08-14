@@ -5,9 +5,10 @@ namespace App\Console\Commands;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MailerController;
+use App\Http\Controllers\RequestToApiLogController;
 use App\Models\Employee;
 use App\Models\Holiday;
-use Exception;
 use Illuminate\Console\Command;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -59,9 +60,8 @@ class SendEmails extends Command
             return true;
         }
     }
-    private function sendBirthdayEmail($employee): bool|string
+    private function sendBirthdayEmail(): bool|string
     {
-        $emailController = new EmailController();
         $holiday = Holiday::query()->where('name', '=', 'день рождения')->first();
 
         $requestData = [
@@ -75,46 +75,19 @@ class SendEmails extends Command
         ];
 
         $responseData = ApiController::sendRequest($requestData);
-        $emailController->saveRequestToLog($requestData, $responseData);
+        RequestToApiLogController::saveRequestToLog($requestData, $responseData);
 
         $congratulationMessage = $responseData['choices'][0]['message']['content'];
 
         $mail = new PHPMailer(true);     // Passing `true` enables exceptions
 
         try {
-            // Email server settings
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host = 'mail.hosting.reg.ru';
-            $mail->SMTPAuth = true;
-            $mail->Username = env('MAIL_USERNAME');
-            $mail->Password = env('MAIL_PASSWORD');
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-            $mail->CharSet = PhpMailer::CHARSET_UTF8;
+            $mailer = new MailerController($this->birthdayEmployee, $congratulationMessage);
+            $mailIsSend = $mailer->sendEmail($mail);
 
-            $mail->setFrom(env('MAIL_USERNAME'), 'Neovox AI');
-            $mail->addAddress($this->birthdayEmployee->email);
-            $mail->isHTML(true); // Set email content format to HTML
+            $emailController = new EmailController();
 
-            $mail->Subject = 'С днём рождения, ' . $this->birthdayEmployee->first_name . '!';
-
-            $mail->Body = view('email.body', [
-                'congratulationMessage' => $congratulationMessage,
-                'employee' => $this->birthdayEmployee
-            ])->render();
-
-            $mail->AltBody = '';
-
-            if (!$mail->send()) {
-                $emailController->saveEmailLog(false, $holiday, $this->birthdayEmployee, $mail->Subject, $mail->Body);
-
-                echo json_encode([
-                    'status' => 'error',
-                    'result' => $mail->ErrorInfo,
-                ]);
-                return false;
-            } else {
+            if ($mailIsSend) {
                 $emailController->saveEmailLog(true, $holiday, $this->birthdayEmployee, $mail->Subject, $mail->Body);
 
                 echo json_encode([
@@ -123,9 +96,16 @@ class SendEmails extends Command
                     'email' => $this->birthdayEmployee->email,
                 ]);
                 return true;
-            }
+            } else {
+                $emailController->saveEmailLog(false, $holiday, $this->birthdayEmployee, $mail->Subject, $mail->Body);
 
-        } catch (Exception $e) {
+                echo json_encode([
+                    'status' => 'error',
+                    'result' => $mail->ErrorInfo,
+                ]);
+                return false;
+            }
+        } catch (\PHPMailer\PHPMailer\Exception $e) {
             echo json_encode([
                 'status' => 'error',
                 'result' => $mail->ErrorInfo,
@@ -142,8 +122,7 @@ class SendEmails extends Command
     public function extracted(mixed $employee): string
     {
         $this->birthdayEmployee = $employee;
-
-        if ($this->sendBirthdayEmail($this->birthdayEmployee)) {
+        if ($this->sendBirthdayEmail()) {
             return 'Congratulations have been sent to: ' . $this->birthdayEmployee->email . ' to: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic;
         }
         return 'When trying to send an email to: ' . $this->birthdayEmployee->email . ' to: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic . ' an error has occurred';
