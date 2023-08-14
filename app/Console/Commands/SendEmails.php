@@ -1,23 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EmployeeController;
 use App\Models\Employee;
 use App\Models\Holiday;
 use Exception;
+use Illuminate\Console\Command;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class CronController extends Controller
+class SendEmails extends Command
 {
     private Employee $birthdayEmployee;
 
-    public function checkBirthday()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:send-emails';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
     {
         $birthdayEmployees = EmployeeController::getBirthdayEmployees();
         $todayDate = \Carbon\Carbon::today()->format('d.m.Y');
 
         if ($birthdayEmployees) {
-            foreach($birthdayEmployees as $employee) {
+            foreach ($birthdayEmployees as $employee) {
                 $logByEmail = \App\Models\EmailLog::query()
                     ->where([['addressee_letter_email', '=', $employee->email]])
                     ->first();
@@ -25,24 +46,19 @@ class CronController extends Controller
                     $logCreatedAt = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $logByEmail->created_at)->format('d.m.Y');
                     $emailSentToday = ($logCreatedAt == $todayDate);
                     if (!$emailSentToday) {
-                        return $this->extracted($employee);
+                        echo $this->extracted($employee);
                     }
                 } else {
-                    return $this->extracted($employee);
+                    echo $this->extracted($employee);
                 }
             }
-            return json_encode([
-                'status' => 'success',
-                'message' => 'Все сегоняшние именинники получили свои поздравления',
-            ]);
+            echo 'Все сегодняшние именинники получили свои поздравления';
+            return true;
         } else {
-            return json_encode([
-                'status' => 'success',
-                'message' => 'Именинников сегодня нет',
-            ]);
+            echo 'Именинников сегодня нет';
+            return true;
         }
     }
-
     private function sendBirthdayEmail($employee): bool|string
     {
         $emailController = new EmailController();
@@ -93,42 +109,43 @@ class CronController extends Controller
             if (!$mail->send()) {
                 $emailController->saveEmailLog(false, $holiday, $this->birthdayEmployee, $mail->Subject, $mail->Body);
 
-                return json_encode([
+                echo json_encode([
                     'status' => 'error',
                     'result' => $mail->ErrorInfo,
                 ]);
+                return false;
             } else {
                 $emailController->saveEmailLog(true, $holiday, $this->birthdayEmployee, $mail->Subject, $mail->Body);
 
-                return json_encode([
+                echo json_encode([
                     'status' => 'success',
                     'congratulationMessage' => $congratulationMessage,
                     'email' => $this->birthdayEmployee->email,
                 ]);
+                return true;
             }
 
         } catch (Exception $e) {
-            return json_encode([
+            echo json_encode([
                 'status' => 'error',
                 'result' => $mail->ErrorInfo,
                 'exception' => $e->getMessage(),
             ]);
+            return false;
         }
     }
 
     /**
      * @param mixed $employee
-     * @return false|string
+     * @return string
      */
-    public function extracted(mixed $employee): string|false
+    public function extracted(mixed $employee): string
     {
         $this->birthdayEmployee = $employee;
-        $mailSendStatus = $this->sendBirthdayEmail($employee);
 
-        return json_encode([
-            'status' => 'success',
-            'message' => 'Поздравление отправлено по адресу: ' . $this->birthdayEmployee->email . ' на имя: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic,
-            'mail-send-status' => $mailSendStatus,
-        ]);
+        if ($this->sendBirthdayEmail($this->birthdayEmployee)) {
+            return 'Поздравление отправлено по адресу: ' . $this->birthdayEmployee->email . ' на имя: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic;
+        }
+        return 'При попытке отправить email по адресу: ' . $this->birthdayEmployee->email . ' на имя: ' . $this->birthdayEmployee->last_name . ' ' . $this->birthdayEmployee->first_name . ' ' . $this->birthdayEmployee->patronymic . ' произошла ошибка';
     }
 }
